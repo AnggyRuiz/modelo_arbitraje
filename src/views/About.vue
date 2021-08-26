@@ -1,5 +1,49 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <div class="d-flex justify-content-end m-3">
+      <button @click="logOut" type="button" class="btn btn-primary btn-sm">
+        Cerrar sesión
+      </button>
+    </div>
   </div>
 </template>
+
+<script>
+import { mapActions, mapState } from "vuex";
+export default {
+  data(){
+    return {
+      user : null,
+    }
+  },
+  computed: {
+    ...mapState(["token", "kUser"]),
+  },
+  methods: {
+    ...mapActions(["logOut", "setUser"]),
+    async protectedData() {
+      try {
+        const res = await fetch(
+          "https://backendmodelo.herokuapp.com/api/dashboard",
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "auth-token": this.token,
+            },
+          }
+        );
+        const resDB = await res.json();
+        console.log(resDB);
+        this.setUser(resDB.data.user);
+        this.user = this.kUser;
+        console.log(this.kUser);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
+  created() {
+    this.protectedData();
+  },
+};
+</script>
