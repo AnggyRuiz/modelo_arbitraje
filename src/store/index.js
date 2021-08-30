@@ -5,6 +5,8 @@ export default createStore({
     state: {
         token: null,
         kUser: null,
+        jobId: null,
+        userData: null
     },
     mutations: {
         setToken(state, payload) {
@@ -12,6 +14,12 @@ export default createStore({
         },
         setUser(state, payload) {
             state.kUser = payload
+        },
+        setJobId(state, payload) {
+            state.jobId = payload
+        },
+        setUserData(state, payload) {
+            state.userData = payload
         }
     },
     actions: {
@@ -31,6 +39,64 @@ export default createStore({
                 localStorage.setItem('idToken', userDB.data.token)
                 router.push('/about');
                 return userDB
+            } catch (error) {
+                console.log(error);
+
+            }
+        },
+        async searchData({ commit }, data) {
+            console.log(data)
+            try {
+                const res = await fetch('https://backendmodelo.herokuapp.com/api/launch', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                })
+                const dataLaunch = await res.json();
+                console.log(dataLaunch);
+                commit('setUserData', dataLaunch)
+                return dataLaunch
+            } catch (error) {
+                console.log(error);
+
+            }
+
+        },
+        async getReport({ commit }, id) {
+            console.log(id);
+            try {
+                const res = await fetch('http://localhost:3333/api/report', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(id)
+                })
+                const dataLaunch = await res.json();
+                console.log(dataLaunch);
+                return dataLaunch
+            } catch (error) {
+                console.log(error);
+
+            }
+
+        },
+        async getResult({ commit }, jobkey) {
+            try {
+                const res = await fetch('http://localhost:3333/api/result', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(jobkey)
+                })
+                const dataLaunch = await res.json();
+                console.log(dataLaunch);
+                console.log(dataLaunch.id);
+                commit('setJobId', dataLaunch.id);
+                return dataLaunch
             } catch (error) {
                 console.log(error);
 

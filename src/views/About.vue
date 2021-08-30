@@ -1,20 +1,28 @@
 <template>
   <div class="about">
-    <div class="d-flex justify-content-end m-3">
+    <div class="d-flex justify-content-between m-3">
+      <h1 v-if="kUser">Welcome {{user.name}}!</h1>
       <button @click="logOut" type="button" class="btn btn-primary btn-sm">
         Cerrar sesión
       </button>
     </div>
+    <div class="row justify-content-between ps-4">
+      <form-report></form-report>
+    </div>
+    <data-table></data-table>
   </div>
 </template>
 
 <script>
 import { mapActions, mapState } from "vuex";
+import DataTable from "../components/Dashboard/DataTable.vue";
+import FormReport from "../components/Dashboard/FormReport.vue";
 export default {
-  data(){
+  components: {DataTable, FormReport },
+  data() {
     return {
-      user : null,
-    }
+      user: null,
+    };
   },
   computed: {
     ...mapState(["token", "kUser"]),
