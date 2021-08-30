@@ -67,7 +67,7 @@ export default createStore({
         async getReport({ commit }, id) {
             console.log(id);
             try {
-                const res = await fetch('http://localhost:3333/api/report', {
+                const res = await fetch('https://backendmodelo.herokuapp.com/api/report', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -85,7 +85,7 @@ export default createStore({
         },
         async getResult({ commit }, jobkey) {
             try {
-                const res = await fetch('http://localhost:3333/api/result', {
+                const res = await fetch('https://backendmodelo.herokuapp.com/api/result', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
