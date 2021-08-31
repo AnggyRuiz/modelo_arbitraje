@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-3 col-11 col-md-6 border">
+  <div class="mt-3 col-10 col-md-6 border">
     <div
       class="
         container
