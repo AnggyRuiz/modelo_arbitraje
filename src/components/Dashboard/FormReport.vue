@@ -24,8 +24,8 @@
             <div class="row col-12 col-md-12 pb-4 justify-content-between m-0">
               <select
                 id="selected"
-                style="width: 30%"
-                class="custom-select custom-select-lg"
+                style="width: 35%"
+                class="custom-select custom-select-lg rounded-3"
               >
                 <option
                   v-for="(typeDocs, index) in typeDoc"

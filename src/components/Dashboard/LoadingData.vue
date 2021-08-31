@@ -29,7 +29,7 @@
         style="display: none"
         @click="viewReport"
         type="button"
-        class="btn btn-outline-primary align-center mt-3"
+        class="btn btn-outline-primary align-center mt-3 mb-4"
       >
         Ver Reporte
       </button>
