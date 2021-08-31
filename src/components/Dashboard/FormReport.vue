@@ -63,7 +63,7 @@ export default {
   },
   data() {
     return {
-      typeDoc: ["CC", "NIT", "CE", "PEP", "PASAPORTE", "NOMBRE"],
+      typeDoc: ["CC", "NIT", "CE", "PEP", "PP", "NOMBRE"],
       doc: "",
       data: {
         doc: "",
