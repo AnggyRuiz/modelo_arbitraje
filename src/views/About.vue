@@ -1,8 +1,8 @@
 <template>
   <div class="about">
     <div class="d-flex justify-content-between m-3">
-      <h1 v-if="kUser">Welcome {{user.name}}!</h1>
-      <button @click="logOut" type="button" class="btn btn-primary btn-sm">
+      <h1 v-if="kUser">Welcome {{ user.name }}!</h1>
+      <button @click="logOut" type="button" class="btn btn-primary w-15 h-25">
         Cerrar sesión
       </button>
     </div>
@@ -18,7 +18,7 @@ import { mapActions, mapState } from "vuex";
 import DataTable from "../components/Dashboard/DataTable.vue";
 import FormReport from "../components/Dashboard/FormReport.vue";
 export default {
-  components: {DataTable, FormReport },
+  components: { DataTable, FormReport },
   data() {
     return {
       user: null,

@@ -1,6 +1,6 @@
 <template>
   <div id="nav">
-    <!--  <button @click="logOut">Cerrar sesión</button> -->
+   
   </div>
   <router-view />
 </template>

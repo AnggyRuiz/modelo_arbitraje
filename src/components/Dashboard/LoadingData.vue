@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-3 col-10 col-md-6 border">
+  <div class="mt-3 col-11 col-md-5 border">
     <div
       class="
         container
@@ -9,7 +9,7 @@
         flex-column
       "
     >
-      <h6 class="h6 pt-3 pb-3 align-self-start">Reporte Solicitado</h6>
+      <h4 class="h4 pt-3 pb-3 align-self-start">Reporte Solicitado</h4>
       <div>
         <loading
           style="position: relative"
@@ -21,7 +21,7 @@
           procesando reporte de {{ name }}.
         </h6>
       </div>
-      <h6 id="okData" style="display: none" class="h6 align-self-start">
+      <h6 id="okData" style="display: none" class="h6 align-center pt-2">
         Reporte de {{ name }} Esta listo.
       </h6>
       <button
@@ -29,7 +29,7 @@
         style="display: none"
         @click="viewReport"
         type="button"
-        class="btn btn-outline-primary mb-4 align-self-start"
+        class="btn btn-outline-primary align-center mt-3"
       >
         Ver Reporte
       </button>

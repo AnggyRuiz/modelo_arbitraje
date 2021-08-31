@@ -113,6 +113,8 @@ export default createStore({
             localStorage.removeItem('idToken')
             commit('setToken', null)
             commit('setUser', null)
+            commit('setUserData', null)
+
             router.push('/');
         },
         setUser({ commit }, user) {
