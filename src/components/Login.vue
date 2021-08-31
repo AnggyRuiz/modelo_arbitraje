@@ -59,7 +59,7 @@ export default {
       },
       show: false,
       label: "Loading...",
-      timeOut: 2000,
+      timeOut: 3000,
       overlay: true,
     };
   },

@@ -47,7 +47,10 @@
         </form>
       </div>
     </div>
-    <loading-data :name="userData.nombre" v-if="userData"></loading-data>
+    <loading-data
+      :name="userData.nombre"
+      v-if="userData"
+    ></loading-data>
   </div>
 </template>
 
@@ -86,9 +89,6 @@ export default {
         await this.searchData(this.data)
           .then((result) => {
             console.log(result);
-            //const id = {"id":"5d9e00483800a5071688a101"}; // se debe cambiar por el orifinal
-            //this.getReport(id)
-            this.getResult({ jobkey: result.jobid });
           })
           .catch((err) => {
             console.error(err);
