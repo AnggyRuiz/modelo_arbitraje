@@ -2,7 +2,7 @@
   <div class="about">
     <div class="d-flex justify-content-between m-3">
       <h1 v-if="kUser">Welcome {{ user.name }}!</h1>
-      <button @click="logOut" type="button" class="btn btn-primary w-15 h-25">
+      <button @click="logOut" type="button" class="btn btn-primary" style="width:150px; height:37px;">
         Cerrar sesión
       </button>
     </div>
