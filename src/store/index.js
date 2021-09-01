@@ -6,7 +6,8 @@ export default createStore({
         token: null,
         kUser: null,
         jobId: null,
-        userData: null
+        userData: null,
+        dataTrx: null
     },
     mutations: {
         setToken(state, payload) {
@@ -20,6 +21,9 @@ export default createStore({
         },
         setUserData(state, payload) {
             state.userData = payload
+        },
+        setDataTrx(state, payload) {
+            state.dataTrx = payload
         }
     },
     actions: {
@@ -96,6 +100,39 @@ export default createStore({
                 console.log(dataLaunch);
                 console.log(dataLaunch.id);
                 commit('setJobId', dataLaunch.id);
+                return dataLaunch
+            } catch (error) {
+                console.log(error);
+
+            }
+        },
+        async getDataTrx({ commit }) {
+            try {
+                const res = await fetch('https://backendmodelo.herokuapp.com/api/trx/getTrx', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                const response = await res.json();
+                console.log(response);
+                commit('setDataTrx', response)
+                return response
+            } catch (error) {
+                console.log(error);
+
+            }
+        },
+        async saveData({ commit }, data) {
+            try {
+                const res = await fetch('https://backendmodelo.herokuapp.com/api/trx/saveTransaction', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                })
+                const dataLaunch = await res.json();
+                console.log(dataLaunch);
                 return dataLaunch
             } catch (error) {
                 console.log(error);

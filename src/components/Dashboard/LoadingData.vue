@@ -64,7 +64,7 @@ export default {
     document.getElementById("btnProcess").style.display = "block";
   },
   methods: {
-    ...mapActions(["getReport", "getResult"]),
+    ...mapActions(["getReport", "getResult", "saveData"]),
     async viewReport() {
       this.getReport({ id: this.jobId });
     },
@@ -73,6 +73,10 @@ export default {
       await this.getResult({ jobkey: this.userData.jobid })
         .then((result) => {
           console.log("aca res", result);
+          this.saveData({
+            name : result.nombre,
+            id: result.cedula
+          })
         })
         .catch((err) => {
           console.error(err);
