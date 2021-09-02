@@ -131,9 +131,27 @@ export default createStore({
                     },
                     body: JSON.stringify(data)
                 })
-                const dataLaunch = await res.json();
-                console.log(dataLaunch);
-                return dataLaunch
+                const dataSaave = await res.json();
+                console.log('data save', dataSaave.data);
+                try {
+                    const res = await fetch('https://backendmodelo.herokuapp.com/api/trx/getTrx', {
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    })
+                    const response = await res.json();
+                    console.log(response);
+                    commit('setDataTrx', response)
+                    return response
+                } catch (error) {
+                    console.log(error);
+
+                }
+
+
+
+
+                return dataSaave
             } catch (error) {
                 console.log(error);
 

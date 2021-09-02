@@ -39,23 +39,13 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapState } from 'vuex';
 export default {
-  data() {
-    return {
-      data: null,
-    };
-  },
-  methods: {
-    ...mapActions(["getDataTrx"]),
-  },
   computed: {
     ...mapState(["dataTrx"]),
   },
-  created() {
-    this.getDataTrx();
-
-    console.log(this.dataTrx);
+  mounted() {
+    console.log('aca tablee',this.dataTrx);
   },
 };
 </script>

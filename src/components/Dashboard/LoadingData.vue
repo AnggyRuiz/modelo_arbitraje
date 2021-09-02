@@ -74,9 +74,9 @@ export default {
         .then((result) => {
           console.log("aca res", result);
           this.saveData({
-            name : result.nombre,
-            id: result.cedula
-          })
+            name: result.nombre,
+            id: result.cedula,
+          });
         })
         .catch((err) => {
           console.error(err);

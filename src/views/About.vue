@@ -28,7 +28,7 @@ export default {
     ...mapState(["token", "kUser"]),
   },
   methods: {
-    ...mapActions(["logOut", "setUser"]),
+    ...mapActions(["logOut", "setUser", "getDataTrx"]),
     async protectedData() {
       try {
         const res = await fetch(
@@ -52,6 +52,7 @@ export default {
   },
   created() {
     this.protectedData();
+    this.getDataTrx();
   },
 };
 </script>
