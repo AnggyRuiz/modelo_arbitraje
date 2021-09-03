@@ -23,6 +23,7 @@
           <form @submit.prevent="sendData">
             <div class="row col-12 col-md-12 pb-4 justify-content-between m-0">
               <select
+                @change="onChange()"
                 id="selected"
                 style="width: 35%"
                 class="custom-select custom-select-lg rounded-3"
@@ -59,7 +60,7 @@ import LoadingData from "./LoadingData.vue";
 export default {
   components: { LoadingData },
   computed: {
-    ...mapState(["userData"]),
+    ...mapState(["userData", "typeTable"]),
   },
   data() {
     return {
@@ -72,7 +73,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["searchData", "getResult"]),
+    ...mapActions(["searchData", "getResult", "setTypeTable"]),
 
     async sendData() {
       if (!this.doc) {
@@ -93,6 +94,13 @@ export default {
             console.error(err);
           });
       }
+    },
+    onChange() {
+      const e = document.getElementById("selected");
+      const result = e.options[e.selectedIndex].value;
+      console.log(result);
+      this.setTypeTable(result);
+      console.log(this.typeTable);
     },
   },
 };

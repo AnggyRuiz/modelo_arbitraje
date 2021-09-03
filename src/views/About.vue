@@ -1,8 +1,13 @@
 <template>
   <div class="about">
     <div class="d-flex justify-content-between m-3">
-      <h1 v-if="kUser">Welcome {{ user.name }}!</h1>
-      <button @click="logOut" type="button" class="btn btn-primary" style="width:150px; height:37px;">
+      <h1 v-if="kUser">Welcome {{ kUser.name }}!</h1>
+      <button
+        @click="logOut"
+        type="button"
+        class="btn btn-primary"
+        style="width: 150px; height: 37px"
+      >
         Cerrar sesión
       </button>
     </div>
@@ -43,16 +48,15 @@ export default {
         const resDB = await res.json();
         console.log(resDB);
         this.setUser(resDB.data.user);
-        this.user = this.kUser;
         console.log(this.kUser);
+        this.getDataTrx(this.kUser.id);
       } catch (error) {
         console.log(error);
       }
     },
   },
-  created() {
+  mounted() {
     this.protectedData();
-    this.getDataTrx();
   },
 };
 </script>

@@ -7,7 +7,8 @@ export default createStore({
         kUser: null,
         jobId: null,
         userData: null,
-        dataTrx: null
+        dataTrx: null,
+        typeTable: null
     },
     mutations: {
         setToken(state, payload) {
@@ -24,29 +25,17 @@ export default createStore({
         },
         setDataTrx(state, payload) {
             state.dataTrx = payload
+        },
+        setTypeTable(state, payload) {
+            state.typeTable = payload;
         }
     },
     actions: {
         async login({ commit }, user) {
             console.log(user)
-            try {
-                const res = await fetch('https://backendmodelo.herokuapp.com/api/user/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(user)
-                })
-                const userDB = await res.json();
-                console.log(userDB.data.token);
-                commit('setToken', userDB.data.token);
-                localStorage.setItem('idToken', userDB.data.token)
-                router.push('/about');
-                return userDB
-            } catch (error) {
-                console.log(error);
-
-            }
+            commit("setToken", user.data.token);
+            localStorage.setItem("idToken", user.data.token);
+            router.push("/about");
         },
         async searchData({ commit }, data) {
             console.log(data)
@@ -106,12 +95,15 @@ export default createStore({
 
             }
         },
-        async getDataTrx({ commit }) {
+        async getDataTrx({ commit }, idUser) {
+            console.log({ "idUser": idUser });
             try {
                 const res = await fetch('https://backendmodelo.herokuapp.com/api/trx/getTrx', {
+                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
+                    body: JSON.stringify({ "idUser": idUser })
                 })
                 const response = await res.json();
                 console.log(response);
@@ -123,6 +115,8 @@ export default createStore({
             }
         },
         async saveData({ commit }, data) {
+            console.clear();
+            console.log(data);
             try {
                 const res = await fetch('https://backendmodelo.herokuapp.com/api/trx/saveTransaction', {
                     method: 'POST',
@@ -135,9 +129,11 @@ export default createStore({
                 console.log('data save', dataSaave.data);
                 try {
                     const res = await fetch('https://backendmodelo.herokuapp.com/api/trx/getTrx', {
+                        method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
+                        body: JSON.stringify({ "idUser": dataSaave.data.idUser })
                     })
                     const response = await res.json();
                     console.log(response);
@@ -174,6 +170,9 @@ export default createStore({
         },
         setUser({ commit }, user) {
             commit('setUser', user);
+        },
+        setTypeTable({ commit }, data) {
+            commit('setTypeTable', data)
         }
     },
     modules: {}

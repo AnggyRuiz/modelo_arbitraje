@@ -53,15 +53,12 @@ export default {
     };
   },
   computed: {
-    ...mapState(["userData", "jobId"]),
+    ...mapState(["userData", "jobId", "kUser"]),
   },
 
   mounted: async function () {
     this.data = await this.getJob();
-    this.isLoading = false;
-    document.getElementById("process").style.display = "none";
-    document.getElementById("okData").style.display = "block";
-    document.getElementById("btnProcess").style.display = "block";
+    this.loading();
   },
   methods: {
     ...mapActions(["getReport", "getResult", "saveData"]),
@@ -73,18 +70,33 @@ export default {
       await this.getResult({ jobkey: this.userData.jobid })
         .then((result) => {
           console.log("aca res", result);
+          console.log(this.kUser);
           this.saveData({
             name: result.nombre,
             id: result.cedula,
+            idUser: this.kUser.id,
+            typeDoc: result.typedoc,
           });
         })
         .catch((err) => {
           console.error(err);
         });
     },
+    loading() {
+      this.isLoading = false;
+      document.getElementById("process").style.display = "none";
+      document.getElementById("okData").style.display = "block";
+      document.getElementById("btnProcess").style.display = "block";
+    },
   },
   components: {
     Loading,
+  },
+  beforeUpdate() {
+    console.log("aca");
+    this.getJob();
+    this.loading();
+
   },
 };
 </script>

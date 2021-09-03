@@ -4,7 +4,7 @@
       <table v-if="dataTrx" class="table table-striped table-bordered">
         <thead>
           <tr>
-            <th>cedula</th>
+            <th>Documento</th>
             <th>Nombre</th>
             <th>Fecha</th>
             <th>Recargar</th>
@@ -39,13 +39,17 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapActions, mapState } from "vuex";
 export default {
   computed: {
-    ...mapState(["dataTrx"]),
+    ...mapState(["dataTrx", "typeTable", "kUser"]),
   },
-  mounted() {
-    console.log('aca tablee',this.dataTrx);
+  methods: {
+    ...mapActions(["getDataTrx"]),
+  },
+  beforeMount() {
+    console.log("aca tablee", this.dataTrx);
+    console.log("aca type table", this.typeTable);
   },
 };
 </script>
