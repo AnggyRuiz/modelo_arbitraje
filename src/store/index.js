@@ -8,7 +8,8 @@ export default createStore({
         jobId: null,
         userData: null,
         dataTrx: null,
-        typeTable: null
+        typeTable: null,
+        queryNum: null
     },
     mutations: {
         setToken(state, payload) {
@@ -28,6 +29,10 @@ export default createStore({
         },
         setTypeTable(state, payload) {
             state.typeTable = payload;
+        },
+        setQuery(state, payload) {
+            state.queryNum = payload
+
         }
     },
     actions: {
@@ -38,7 +43,7 @@ export default createStore({
             router.push("/about");
         },
         async searchData({ commit }, data) {
-            console.log(data)
+            console.log('aca data', data)
             try {
                 const res = await fetch('https://backendmodelo.herokuapp.com/api/launch', {
                     method: 'POST',
@@ -56,6 +61,27 @@ export default createStore({
 
             }
 
+        },
+        async setQueryNum({ commit }, id) {
+            console.log({ "idUser": id });
+            try {
+                const res = await fetch('https://backendmodelo.herokuapp.com/api/user/getUser', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ "idUser": id })
+                })
+                const dataRes = await res.json();
+                console.log(dataRes[0].queryNum);
+                commit('setQuery', dataRes[0].queryNum - 1)
+
+
+                return dataRes
+            } catch (error) {
+                console.log(error);
+
+            }
         },
         async getReport({ commit }, id) {
             console.log(id);
@@ -115,7 +141,7 @@ export default createStore({
             }
         },
         async saveData({ commit }, data) {
-            console.clear();
+
             console.log(data);
             try {
                 const res = await fetch('https://backendmodelo.herokuapp.com/api/trx/saveTransaction', {
@@ -173,6 +199,9 @@ export default createStore({
         },
         setTypeTable({ commit }, data) {
             commit('setTypeTable', data)
+        },
+        setQuery({ commit }, data) {
+            commit('setQuery', data)
         }
     },
     modules: {}

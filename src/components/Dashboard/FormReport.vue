@@ -20,6 +20,14 @@
           >
             Debes completar el campo documento.
           </div>
+          <div
+            class="alert alert-danger"
+            id="alertQuey"
+            role="alertQuey"
+            style="display: none"
+          >
+            Ya no tienes consultas disponibles
+          </div>
           <form @submit.prevent="sendData">
             <div class="row col-12 col-md-12 pb-4 justify-content-between m-0">
               <select
@@ -60,7 +68,7 @@ import LoadingData from "./LoadingData.vue";
 export default {
   components: { LoadingData },
   computed: {
-    ...mapState(["userData", "typeTable"]),
+    ...mapState(["userData", "typeTable", "kUser", "queryNum"]),
   },
   data() {
     return {
@@ -69,11 +77,13 @@ export default {
       data: {
         doc: "",
         typedoc: "",
+        queryNum: "",
+        id: "",
       },
     };
   },
   methods: {
-    ...mapActions(["searchData", "getResult", "setTypeTable"]),
+    ...mapActions(["searchData", "getResult", "setTypeTable", "setQuery", "setQueryNum"]),
 
     async sendData() {
       if (!this.doc) {
@@ -81,18 +91,34 @@ export default {
         document.getElementById("alert").style.display = "block";
       } else {
         document.getElementById("alert").style.display = "none";
-        const e = document.getElementById("selected");
-        const result = e.options[e.selectedIndex].value;
-        this.data.doc = this.doc;
-        this.data.typedoc = result;
-        console.log(this.data);
-        await this.searchData(this.data)
-          .then((result) => {
-            console.log(result);
-          })
-          .catch((err) => {
-            console.error(err);
-          });
+        console.log(this.kUser);
+        this.setQueryNum(this.kUser.id).then((res, err) => {
+          if (err) throw new Error(err);
+          console.log(res);
+          console.log("aca va el num", this.queryNum);
+          if (!this.queryNum == 0) {
+            const e = document.getElementById("selected");
+            const result = e.options[e.selectedIndex].value;
+            this.data.doc = this.doc;
+            this.data.typedoc = result;
+            this.data.queryNum = this.queryNum;
+            this.data.id = this.kUser.id;
+            console.log(this.data);
+             this.setQuery(this.queryNum)
+             console.log('acaaaa cambiaaaa', this.queryNum);
+            this.searchData(this.data)
+              .then((result) => {
+                console.log('poner cuidado aca', result);
+               
+              })
+              .catch((err) => {
+                console.error(err);
+              });
+          } else {
+            document.getElementById("alertQuey").style.display = "block";
+            return;
+          }
+        });
       }
     },
     onChange() {
