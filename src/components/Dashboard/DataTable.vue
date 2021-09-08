@@ -24,7 +24,7 @@
               <img
                 src="../../assets/check.png"
                 style="width: 20px"
-                class="img-fluid ms-4"
+                class="img-fluid"
               />
             </td>
             <td>
