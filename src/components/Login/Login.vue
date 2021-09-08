@@ -98,14 +98,6 @@ export default {
         this.show = false
         document.getElementById("alert").style.display = "block";
       }
-
-      /*  await this.login(user)
-        .then((result) => {
-          console.log(result);
-        })
-        .catch((err) => {
-          console.error(err);
-        }); */
     },
     async showMe() {
       if (!this.user) {

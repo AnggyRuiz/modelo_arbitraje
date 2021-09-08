@@ -39,8 +39,14 @@ export default createStore({
         async login({ commit }, user) {
             console.log(user)
             commit("setToken", user.data.token);
+            commit('setUser', user.user);
             localStorage.setItem("idToken", user.data.token);
-            router.push("/about");
+            if (user.user.stateAccount == false) {
+                router.push("/changePsw");
+
+            } else {
+                router.push("/about");
+            }
         },
         async searchData({ commit }, data) {
             console.log('aca data', data)

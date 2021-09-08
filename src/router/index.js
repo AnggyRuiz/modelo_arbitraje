@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import store from '../store'
-import PruebasForm from '../views/PruebasForm.vue'
+import changePsw from '../views/changePsw.vue'
 
 const routes = [{
         path: '/',
@@ -16,9 +16,10 @@ const routes = [{
         meta: { protectedRoute: true }
     },
     {
-        path: '/PruebasForm',
-        name: 'PruebasForm',
-        component: PruebasForm,
+        path: '/changePsw',
+        name: 'changePsw',
+        component: changePsw,
+        meta: { protectedRoute: true }
     }
 ]
 
