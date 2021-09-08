@@ -1,6 +1,5 @@
 <template>
   <div id="nav">
-   
   </div>
   <router-view />
 </template>
@@ -8,6 +7,7 @@
 <script>
 import { mapActions } from "vuex";
 export default {
+  components: {},
   methods: {
     ...mapActions(["getToken", "logOut"]),
   },

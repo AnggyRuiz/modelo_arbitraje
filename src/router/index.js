@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import store from '../store'
 import changePsw from '../views/changePsw.vue'
+import Kyc from '../views/Kyc.vue'
 
 const routes = [{
         path: '/',
@@ -20,6 +21,11 @@ const routes = [{
         name: 'changePsw',
         component: changePsw,
         meta: { protectedRoute: true }
+    },
+    {
+        path: '/Kyc',
+        name: 'Kyc',
+        component: Kyc,
     }
 ]
 
