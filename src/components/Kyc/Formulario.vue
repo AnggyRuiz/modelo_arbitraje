@@ -3,10 +3,10 @@
    <div class="col-12 col-md-4">
  <div class="card shadow-2-strong" style="border-radius: 1rem">
  <div class="card-body p-5 text-center">
- <h3 class="mb-5">Información General</h3>
+ <h2 class="mb-5">Información General</h2>
  <form>
      <div class="">
-         <label class="d-flex fs-5 align-self-start" for="Nombre">Nombre completo</label>
+         <label class="d-flex fs-6 align-self-start" for="Nombre">Nombre completo</label>
      </div>
      
  <div class="form-outline mb-4">
@@ -17,7 +17,7 @@
  />
  </div>
  <div class="">
-         <label class="d-flex  fs-5 align-self-start" for="Nombre">Número identificación</label>
+         <label class="d-flex  fs-6 align-self-start" for="Nombre">Número identificación</label>
      </div>
  <div class="d-flex form-outline mb-4">
       <select class="form-select p-2 me-3" style="width:110px;">
@@ -28,7 +28,6 @@
 </select>
  <input
  type="text"
- placeholder="Ingrese el número"
  class=" form-control form-control-lg"
  />
  
