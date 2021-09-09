@@ -13,8 +13,8 @@
     </div>
     <div class="row justify-content-between ps-4">
       <form-report></form-report>
-    </div>
-    <data-table></data-table>
+    </div><!-- 
+    <data-table></data-table> -->
   </div>
 </template>
 

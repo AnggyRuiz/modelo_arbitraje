@@ -59,14 +59,16 @@
       </div>
       <loading-data :name="userData.nombre" v-if="userData"></loading-data>
     </div>
+    <data-table></data-table>
   </div>
 </template>
 
 <script>
 import { mapActions, mapState } from "vuex";
+import DataTable from './DataTable.vue';
 import LoadingData from "./LoadingData.vue";
 export default {
-  components: { LoadingData },
+  components: { LoadingData, DataTable },
   computed: {
     ...mapState(["userData", "typeTable", "kUser", "queryNum"]),
   },
@@ -109,7 +111,7 @@ export default {
             this.searchData(this.data)
               .then((result) => {
                 console.log('poner cuidado aca', result);
-               
+               this.doc= null
               })
               .catch((err) => {
                 console.error(err);

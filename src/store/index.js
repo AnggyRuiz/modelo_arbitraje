@@ -8,7 +8,7 @@ export default createStore({
         jobId: null,
         userData: null,
         dataTrx: null,
-        typeTable: null,
+        typeTable: 'CC',
         queryNum: null
     },
     mutations: {
@@ -49,6 +49,8 @@ export default createStore({
             }
         },
         async searchData({ commit }, data) {
+            commit('setUserData', null)
+
             console.log('aca data', data)
             try {
                 const res = await fetch('https://backendmodelo.herokuapp.com/api/launch', {
@@ -147,8 +149,6 @@ export default createStore({
             }
         },
         async saveData({ commit }, data) {
-
-            console.log(data);
             try {
                 const res = await fetch('https://backendmodelo.herokuapp.com/api/trx/saveTransaction', {
                     method: 'POST',
@@ -170,6 +170,7 @@ export default createStore({
                     const response = await res.json();
                     console.log(response);
                     commit('setDataTrx', response)
+
                     return response
                 } catch (error) {
                     console.log(error);

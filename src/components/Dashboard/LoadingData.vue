@@ -94,7 +94,6 @@ export default {
   },
   beforeUpdate() {
     console.log("aca");
-    this.getJob();
     this.loading();
 
   },

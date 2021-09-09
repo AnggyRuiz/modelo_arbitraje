@@ -91,11 +91,11 @@ export default {
         );
         const userDB = await res.json();
         console.log(userDB.data.token);
-        await this.login(userDB)
+        await this.login(userDB);
         return userDB;
       } catch (error) {
         console.log(error);
-        this.show = false
+        this.show = false;
         document.getElementById("alert").style.display = "block";
       }
     },
