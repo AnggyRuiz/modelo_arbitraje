@@ -25,6 +25,7 @@
                 src="../../assets/recargar.png"
                 style="width: 20px"
                 class="img-fluid ms-4"
+                @click="getDataRetryNit(arrayNit.jobId, arrayNit.typeDoc, arrayNit.name)"
               />
             </td>
             <td>
@@ -61,6 +62,7 @@
                 src="../../assets/recargar.png"
                 style="width: 20px"
                 class="img-fluid ms-4"
+                @click="getDataRetryCC(arrayCC.jobId, arrayCC.typeDoc, arrayCC.name)"
               />
             </td>
             <td>
@@ -97,6 +99,7 @@
                 src="../../assets/recargar.png"
                 style="width: 20px"
                 class="img-fluid ms-4"
+                @click="getDataRetryCE()"
               />
             </td>
             <td>
@@ -108,7 +111,6 @@
             </td>
           </tr>
         </tbody>
-
       </table>
       <table
         v-if="typeTable == 'PEP'"
@@ -134,6 +136,7 @@
                 src="../../assets/recargar.png"
                 style="width: 20px"
                 class="img-fluid ms-4"
+                @click="getDataRetryPEP()"
               />
             </td>
             <td>
@@ -170,6 +173,7 @@
                 src="../../assets/recargar.png"
                 style="width: 20px"
                 class="img-fluid ms-4"
+                @click="getDataRetryPP()"
               />
             </td>
             <td>
@@ -206,6 +210,7 @@
                 src="../../assets/recargar.png"
                 style="width: 20px"
                 class="img-fluid ms-4"
+                @click="getDataRetryNom()"
               />
             </td>
             <td>
@@ -239,7 +244,42 @@ export default {
     ...mapState(["dataTrx", "typeTable", "kUser"]),
   },
   methods: {
-    ...mapActions(["getDataTrx"]),
+    ...mapActions(["getDataTrx", "getRetry", "setJobId", "setTypeLoad"]),
+    getDataRetry() {
+      console.log("entra aca");
+    },
+    getDataRetryNom() {},
+    getDataRetryPP() {},
+    getDataRetryPEP() {},
+    getDataRetryCE() {},
+    getDataRetryCC(jobId, typeDoc, name) {
+      console.log(jobId);
+      console.log(typeDoc);
+      console.log(name);
+      const data = { id: jobId, typedoc: typeDoc};
+      this.getRetry(data)
+        .then((res) => {
+          console.log("acaress", res);
+          this.setTypeLoad('retry')
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getDataRetryNit(jobId, typeDoc) {
+      console.log(jobId);
+      console.log(typeDoc);
+      const data = { id: jobId, typedoc: typeDoc };
+      this.getRetry(data)
+        .then((res) => {
+          console.log("acaress", res);
+          this.setTypeLoad('retry')
+
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
   beforeUpdate() {
     console.log("aca tablee", this.dataTrx);

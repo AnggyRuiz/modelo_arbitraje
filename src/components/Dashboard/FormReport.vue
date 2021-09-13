@@ -65,7 +65,7 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
-import DataTable from './DataTable.vue';
+import DataTable from "./DataTable.vue";
 import LoadingData from "./LoadingData.vue";
 export default {
   components: { LoadingData, DataTable },
@@ -85,7 +85,14 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["searchData", "getResult", "setTypeTable", "setQuery", "setQueryNum"]),
+    ...mapActions([
+      "searchData",
+      "getResult",
+      "setTypeTable",
+      "setQuery",
+      "setQueryNum",
+      "setTypeLoad"
+    ]),
 
     async sendData() {
       if (!this.doc) {
@@ -106,12 +113,14 @@ export default {
             this.data.queryNum = this.queryNum;
             this.data.id = this.kUser.id;
             console.log(this.data);
-             this.setQuery(this.queryNum)
-             console.log('acaaaa cambiaaaa', this.queryNum);
+            this.setQuery(this.queryNum);
+            console.log("acaaaa cambiaaaa", this.queryNum);
+            this.setTypeLoad("form");
+
             this.searchData(this.data)
               .then((result) => {
-                console.log('poner cuidado aca', result);
-               this.doc= null
+                console.log("poner cuidado aca", result);
+                this.doc = null;
               })
               .catch((err) => {
                 console.error(err);

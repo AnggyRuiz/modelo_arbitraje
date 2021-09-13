@@ -53,7 +53,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["userData", "jobId", "kUser"]),
+    ...mapState(["userData", "jobId", "kUser", "numNit", "typeLoad"]),
   },
 
   mounted: async function () {
@@ -70,13 +70,30 @@ export default {
       await this.getResult({ jobkey: this.userData.jobid })
         .then((result) => {
           console.log("aca res", result);
-          console.log(this.kUser);
-          this.saveData({
-            name: result.nombre,
-            id: result.cedula,
-            idUser: this.kUser.id,
-            typeDoc: result.typedoc,
-          });
+          console.log(result.id);
+          console.log(this.typeLoad);
+          if (this.typeLoad == "retry") {
+            console.log("ajaaaaaaaa");
+          } else {
+            if (result.typedoc == "NIT") {
+              console.log("entra");
+              this.saveData({
+                name: result.nombre,
+                id: this.numNit,
+                idUser: this.kUser.id,
+                typeDoc: result.typedoc,
+                jobId: result.id,
+              });
+            } else {
+              this.saveData({
+                name: result.nombre,
+                id: result.cedula,
+                idUser: this.kUser.id,
+                typeDoc: result.typedoc,
+                jobId: result.id,
+              });
+            }
+          }
         })
         .catch((err) => {
           console.error(err);
@@ -95,7 +112,6 @@ export default {
   beforeUpdate() {
     console.log("aca");
     this.loading();
-
   },
 };
 </script>

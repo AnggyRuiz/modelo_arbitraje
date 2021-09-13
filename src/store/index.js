@@ -9,7 +9,9 @@ export default createStore({
         userData: null,
         dataTrx: null,
         typeTable: 'CC',
-        queryNum: null
+        queryNum: null,
+        numNit: null,
+        typeLoad: null
     },
     mutations: {
         setToken(state, payload) {
@@ -32,7 +34,12 @@ export default createStore({
         },
         setQuery(state, payload) {
             state.queryNum = payload
-
+        },
+        setNumNit(state, payload) {
+            state.numNit = payload
+        },
+        setTypeLoad(state, payload) {
+            state.typeLoad = payload
         }
     },
     actions: {
@@ -50,8 +57,10 @@ export default createStore({
         },
         async searchData({ commit }, data) {
             commit('setUserData', null)
+            commit('setNumNit', null)
 
-            console.log('aca data', data)
+            console.log('aca dataaAAA', data.doc)
+            commit('setNumNit', data.doc)
             try {
                 const res = await fetch('https://backendmodelo.herokuapp.com/api/launch', {
                     method: 'POST',
@@ -92,6 +101,8 @@ export default createStore({
             }
         },
         async getReport({ commit }, id) {
+            commit('setUserData', null)
+            commit('setNumNit', null)
             console.log(id);
             try {
                 const res = await fetch('https://backendmodelo.herokuapp.com/api/report', {
@@ -149,6 +160,7 @@ export default createStore({
             }
         },
         async saveData({ commit }, data) {
+            console.log(data);
             try {
                 const res = await fetch('https://backendmodelo.herokuapp.com/api/trx/saveTransaction', {
                     method: 'POST',
@@ -186,6 +198,27 @@ export default createStore({
 
             }
         },
+        async getRetry({ commit }, data) {
+
+            console.log(data);
+            try {
+                const res = await fetch('https://backendmodelo.herokuapp.com/api/retry', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                })
+                const dataLaunch = await res.json();
+                console.log(dataLaunch);
+                commit('setUserData', dataLaunch)
+
+                return dataLaunch
+            } catch (error) {
+                console.log(error);
+
+            }
+        },
         getToken({ commit }) {
             if (localStorage.getItem('idToken')) {
                 commit('setToken', localStorage.getItem('idToken'))
@@ -209,7 +242,17 @@ export default createStore({
         },
         setQuery({ commit }, data) {
             commit('setQuery', data)
+        },
+        setJobId({ commit }, data) {
+            commit('setJobId', data)
+        },
+        setUserData({ commit }, data) {
+            commit('setUserData', data)
+        },
+        setTypeLoad({ commit }, data) {
+            commit('setTypeLoad', data)
         }
+
     },
     modules: {}
 })
