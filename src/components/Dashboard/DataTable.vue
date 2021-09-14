@@ -1,5 +1,5 @@
 <template>
-  <div class="container col-12 col-md-12 mt-5 border">
+  <div class="row col-12 col-md-12 mt-5 ">
     <div v-if="dataTrx" class="table-responsive">
       <table
         v-if="typeTable == 'NIT'"
@@ -26,13 +26,13 @@
                 v-if="arrayNit.finding"
                 src="../../assets/X.png"
                 style="width: 20px"
-                class="img-fluid ms-4"
+                class="img-fluid"
               />
               <img
                 v-else
                 src="../../assets/check.png"
                 style="width: 20px"
-                class="img-fluid ms-4"
+                class="img-fluid"
               />
             </td>
             <td>
@@ -40,13 +40,13 @@
                 v-if="arrayNit.err"
                 src="../../assets/X.png"
                 style="width: 20px"
-                class="img-fluid ms-4"
+                class="img-fluid"
               />
               <img
                 v-else
                 src="../../assets/check.png"
                 style="width: 20px"
-                class="img-fluid ms-4"
+                class="img-fluid"
               />
             </td>
             <td>
@@ -54,7 +54,7 @@
                 v-if="arrayNit.err"
                 src="../../assets/recargar.png"
                 style="width: 20px"
-                class="img-fluid ms-4"
+                class="img-fluid"
                 @click="
                   getDataRetryNit(
                     arrayNit.jobId,
@@ -65,13 +65,13 @@
                   )
                 "
               />
-              <p v-else style="width: 20px" class="img-fluid ms-4">--</p>
+              <p v-else style="width: 20px" class="img-fluid">--</p>
             </td>
             <td>
               <img
                 src="../../assets/descargar.png"
                 style="width: 20px"
-                class="img-fluid ms-2"
+                class="img-fluid"
               />
             </td>
           </tr>
@@ -102,13 +102,13 @@
                 v-if="arrayCC.finding"
                 src="../../assets/X.png"
                 style="width: 20px"
-                class="img-fluid ms-4"
+                class="img-fluid"
               />
               <img
                 v-else
                 src="../../assets/check.png"
                 style="width: 20px"
-                class="img-fluid ms-4"
+                class="img-fluid"
               />
             </td>
             <td>
@@ -116,13 +116,13 @@
                 v-if="arrayCC.err"
                 src="../../assets/X.png"
                 style="width: 20px"
-                class="img-fluid ms-4"
+                class="img-fluid"
               />
               <img
                 v-else
                 src="../../assets/check.png"
                 style="width: 20px"
-                class="img-fluid ms-4"
+                class="img-fluid"
               />
             </td>
             <td>
@@ -130,7 +130,7 @@
                 v-if="arrayCC.err"
                 src="../../assets/recargar.png"
                 style="width: 20px"
-                class="img-fluid ms-4"
+                class="img-fluid "
                 @click="
                   getDataRetryCC(
                     arrayCC.jobId,
@@ -141,13 +141,13 @@
                   )
                 "
               />
-              <p v-else style="width: 20px" class="img-fluid ms-4">--</p>
+              <p v-else style="width: 20px" class="img-fluid">--</p>
             </td>
             <td>
               <img
                 src="../../assets/descargar.png"
                 style="width: 20px"
-                class="img-fluid ms-2"
+                class="img-fluid"
               />
             </td>
           </tr>
@@ -178,13 +178,13 @@
                 v-if="arrayCE.finding"
                 src="../../assets/X.png"
                 style="width: 20px"
-                class="img-fluid ms-4"
+                class="img-fluid"
               />
               <img
                 v-else
                 src="../../assets/check.png"
                 style="width: 20px"
-                class="img-fluid ms-4"
+                class="img-fluid"
               />
             </td>
             <td>
@@ -192,13 +192,13 @@
                 v-if="arrayCE.err"
                 src="../../assets/X.png"
                 style="width: 20px"
-                class="img-fluid ms-4"
+                class="img-fluid"
               />
               <img
                 v-else
                 src="../../assets/check.png"
                 style="width: 20px"
-                class="img-fluid ms-4"
+                class="img-fluid"
               />
             </td>
             <td>
@@ -206,7 +206,7 @@
                 v-if="arrayCE.err"
                 src="../../assets/recargar.png"
                 style="width: 20px"
-                class="img-fluid ms-4"
+                class="img-fluid"
                 @click="
                   getDataRetryCE(
                     arrayCE.jobId,
@@ -217,14 +217,14 @@
                   )
                 "
               />
-              <p v-else style="width: 20px" class="img-fluid ms-4">--</p>
+              <p v-else style="width: 20px" class="img-fluid">--</p>
             </td>
 
             <td>
               <img
                 src="../../assets/descargar.png"
                 style="width: 20px"
-                class="img-fluid ms-2"
+                class="img-fluid"
               />
             </td>
           </tr>
@@ -256,13 +256,13 @@
                 v-if="arrayPEP.finding"
                 src="../../assets/X.png"
                 style="width: 20px"
-                class="img-fluid ms-4"
+                class="img-fluid"
               />
               <img
                 v-else
                 src="../../assets/check.png"
                 style="width: 20px"
-                class="img-fluid ms-4"
+                class="img-fluid"
               />
             </td>
             <td>
@@ -270,13 +270,13 @@
                 v-if="arrayPEP.err"
                 src="../../assets/X.png"
                 style="width: 20px"
-                class="img-fluid ms-4"
+                class="img-fluid"
               />
               <img
                 v-else
                 src="../../assets/check.png"
                 style="width: 20px"
-                class="img-fluid ms-4"
+                class="img-fluid"
               />
             </td>
             <td>
@@ -284,7 +284,7 @@
                 v-if="arrayPEP.err"
                 src="../../assets/recargar.png"
                 style="width: 20px"
-                class="img-fluid ms-4"
+                class="img-fluid"
                 @click="
                   getDataRetryPEP(
                     arrayPP.jobId,
@@ -295,14 +295,14 @@
                   )
                 "
               />
-              <p v-else style="width: 20px" class="img-fluid ms-4">--</p>
+              <p v-else style="width: 20px" class="img-fluid">--</p>
             </td>
 
             <td>
               <img
                 src="../../assets/descargar.png"
                 style="width: 20px"
-                class="img-fluid ms-2"
+                class="img-fluid"
               />
             </td>
           </tr>
@@ -333,13 +333,13 @@
                 v-if="arrayPP.finding"
                 src="../../assets/X.png"
                 style="width: 20px"
-                class="img-fluid ms-4"
+                class="img-fluid"
               />
               <img
                 v-else
                 src="../../assets/check.png"
                 style="width: 20px"
-                class="img-fluid ms-4"
+                class="img-fluid"
               />
             </td>
             <td>
@@ -347,13 +347,13 @@
                 v-if="arrayPP.err"
                 src="../../assets/X.png"
                 style="width: 20px"
-                class="img-fluid ms-4"
+                class="img-fluid"
               />
               <img
                 v-else
                 src="../../assets/check.png"
                 style="width: 20px"
-                class="img-fluid ms-4"
+                class="img-fluid"
               />
             </td>
             <td>
@@ -361,7 +361,7 @@
                 v-if="arrayPP.err"
                 src="../../assets/recargar.png"
                 style="width: 20px"
-                class="img-fluid ms-4"
+                class="img-fluid"
                 @click="
                   getDataRetryPP(
                     arrayPP.jobId,
@@ -372,13 +372,13 @@
                   )
                 "
               />
-              <p v-else style="width: 20px" class="img-fluid ms-4">--</p>
+              <p v-else style="width: 20px" class="img-fluid">--</p>
             </td>
             <td>
               <img
                 src="../../assets/descargar.png"
                 style="width: 20px"
-                class="img-fluid ms-2"
+                class="img-fluid"
               />
             </td>
           </tr>
@@ -409,13 +409,13 @@
                 v-if="arrayNOM.finding"
                 src="../../assets/X.png"
                 style="width: 20px"
-                class="img-fluid ms-4"
+                class="img-fluid"
               />
               <img
                 v-else
                 src="../../assets/check.png"
                 style="width: 20px"
-                class="img-fluid ms-4"
+                class="img-fluid"
               />
             </td>
             <td>
@@ -423,13 +423,13 @@
                 v-if="arrayNOM.err"
                 src="../../assets/X.png"
                 style="width: 20px"
-                class="img-fluid ms-4"
+                class="img-fluid"
               />
               <img
                 v-else
                 src="../../assets/check.png"
                 style="width: 20px"
-                class="img-fluid ms-4"
+                class="img-fluid"
               />
             </td>
             <td>
@@ -437,7 +437,7 @@
                 v-if="arrayNOM.err"
                 src="../../assets/recargar.png"
                 style="width: 20px"
-                class="img-fluid ms-4"
+                class="img-fluid"
                 @click="
                   getDataRetryPP(
                     arrayNOM.jobId,
@@ -448,13 +448,13 @@
                   )
                 "
               />
-              <p v-else style="width: 20px" class="img-fluid ms-4">--</p>
+              <p v-else style="width: 20px" class="img-fluid">--</p>
             </td>
             <td>
               <img
                 src="../../assets/descargar.png"
                 style="width: 20px"
-                class="img-fluid ms-2"
+                class="img-fluid"
               />
             </td>
           </tr>
