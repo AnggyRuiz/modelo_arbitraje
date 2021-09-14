@@ -83,14 +83,24 @@ export default {
                 idUser: this.kUser.id,
                 typeDoc: result.typedoc,
                 jobId: result.id,
+                findings: result.hallazgos,
+                errores: result.errores,
+                finding: result.hallazgo,
+                err: result.error,
               });
             } else {
+              console.log("ERRORES", result.errores);
+              console.log("ERROR", result.error);
               this.saveData({
                 name: result.nombre,
                 id: result.cedula,
                 idUser: this.kUser.id,
                 typeDoc: result.typedoc,
                 jobId: result.id,
+                findings: result.hallazgos,
+                errores: result.errores,
+                finding: result.hallazgo,
+                error: result.error,
               });
             }
           }
