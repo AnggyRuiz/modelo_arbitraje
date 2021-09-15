@@ -58,50 +58,63 @@ export default {
 
   mounted: async function () {
     this.data = await this.getJob();
-    this.loading();
   },
   methods: {
-    ...mapActions(["getReport", "getResult", "saveData"]),
+    ...mapActions(["getReport", "getResult", "saveData", "setJobId"]),
     async viewReport() {
+      console.log(this.jobId);
       this.getReport({ id: this.jobId });
     },
     async getJob() {
       console.log({ jobkey: this.userData.jobid });
       await this.getResult({ jobkey: this.userData.jobid })
         .then((result) => {
-          console.log("aca res", result);
-          console.log(result.id);
-          console.log(this.typeLoad);
-          if (this.typeLoad == "retry") {
-            console.log("ajaaaaaaaa");
+          if (result.estado == "procesando") {
+            this.getJob();
+            this.isLoading = true;
           } else {
-            if (result.typedoc == "NIT") {
-              console.log("entra");
-              this.saveData({
-                name: result.nombre,
-                id: this.numNit,
-                idUser: this.kUser.id,
-                typeDoc: result.typedoc,
-                jobId: result.id,
-                findings: result.hallazgos,
-                errores: result.errores,
-                finding: result.hallazgo,
-                err: result.error,
-              });
+            this.loading();
+            console.log("aca res", result);
+            console.log(result.id);
+            this.setJobId(result.id);
+            console.log(this.typeLoad);
+            if (this.typeLoad == "retry") {
+              console.log("ajaaaaaaaa");
             } else {
-              console.log("ERRORES", result.errores);
-              console.log("ERROR", result.error);
-              this.saveData({
-                name: result.nombre,
-                id: result.cedula,
-                idUser: this.kUser.id,
-                typeDoc: result.typedoc,
-                jobId: result.id,
-                findings: result.hallazgos,
-                errores: result.errores,
-                finding: result.hallazgo,
-                error: result.error,
-              });
+              if (result.typedoc == "NIT") {
+                console.log("entra");
+                this.saveData({
+                  name: result.nombre,
+                  id: this.numNit,
+                  idUser: this.kUser.id,
+                  typeDoc: result.typedoc,
+                  jobId: result.id,
+                  findings: result.hallazgos,
+                  errores: result.errores,
+                  finding: result.hallazgo,
+                  err: result.error,
+                });
+              } else {
+                console.log("ERRORES", result.errores);
+                console.log("ERROR", result.error);
+                this.saveData({
+                  name: result.nombre,
+                  id: result.cedula,
+                  idUser: this.kUser.id,
+                  typeDoc: result.typedoc,
+                  jobId: result.id,
+                  findings: result.hallazgos,
+                  errores: result.errores,
+                  finding: result.hallazgo,
+                  error: result.error,
+                })
+                  .then((res) => {
+                    console.log(res);
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
+              }
             }
           }
         })

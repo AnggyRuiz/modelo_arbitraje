@@ -91,7 +91,7 @@ export default createStore({
                 })
                 const dataRes = await res.json();
                 console.log(dataRes[0].queryNum);
-                commit('setQuery', dataRes[0].queryNum - 1)
+                commit('setQuery', dataRes[0].queryNum)
 
 
                 return dataRes
@@ -114,6 +114,7 @@ export default createStore({
                 })
                 const dataLaunch = await res.json();
                 console.log(dataLaunch);
+
                 return dataLaunch
             } catch (error) {
                 console.log(error);
@@ -133,7 +134,6 @@ export default createStore({
                 const dataLaunch = await res.json();
                 console.log(dataLaunch);
                 console.log(dataLaunch.id);
-                commit('setJobId', dataLaunch.id);
                 return dataLaunch
             } catch (error) {
                 console.log(error);
@@ -161,6 +161,7 @@ export default createStore({
         },
         async saveData({ commit }, data) {
             console.log(data);
+            console.log('entraaaa a guardar datos a la BD');
             try {
                 const res = await fetch('https://backendmodelo.herokuapp.com/api/trx/saveTransaction', {
                     method: 'POST',

@@ -79,7 +79,7 @@ export default {
       data: {
         doc: "",
         typedoc: "",
-        queryNum: "",
+        queryNum: null,
         id: "",
       },
     };
@@ -87,11 +87,10 @@ export default {
   methods: {
     ...mapActions([
       "searchData",
-      "getResult",
       "setTypeTable",
       "setQuery",
       "setQueryNum",
-      "setTypeLoad"
+      "setTypeLoad",
     ]),
 
     async sendData() {
@@ -110,14 +109,14 @@ export default {
             const result = e.options[e.selectedIndex].value;
             this.data.doc = this.doc;
             this.data.typedoc = result;
-            this.data.queryNum = this.queryNum;
+            this.data.queryNum = this.queryNum - 1;
             this.data.id = this.kUser.id;
             console.log(this.data);
-            this.setQuery(this.queryNum);
-            console.log("acaaaa cambiaaaa", this.queryNum);
+            this.setQuery(this.data.queryNum);
+            console.log("acaaaa cambiaaaa", this.data.queryNum);
             this.setTypeLoad("form");
 
-            this.searchData(this.data)
+           this.searchData(this.data)
               .then((result) => {
                 console.log("poner cuidado aca", result);
                 this.doc = null;

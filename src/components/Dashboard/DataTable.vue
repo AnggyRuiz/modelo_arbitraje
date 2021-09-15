@@ -502,6 +502,7 @@ export default {
         .then((res) => {
           console.log("acaress", res);
           this.setTypeLoad("retry");
+          console.log(res.jobid);
           this.getResult({ jobkey: res.jobid })
             .then((data) => {
               console.log("acaaaaa dataaaaa trx", data);
