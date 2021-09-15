@@ -65,7 +65,7 @@
                   )
                 "
               />
-              <p v-else style="width: 20px" class="img-fluid">--</p>
+              <p v-else style="width: 20px margin-left:0;" class="img-fluid">--</p>
             </td>
             <td>
               <img
@@ -141,7 +141,7 @@
                   )
                 "
               />
-              <p v-else style="width: 20px" class="img-fluid">--</p>
+              <p v-else style="width: 20px margin-left:0;" class="img-fluid">--</p>
             </td>
             <td>
               <img
@@ -217,7 +217,7 @@
                   )
                 "
               />
-              <p v-else style="width: 20px" class="img-fluid">--</p>
+              <p v-else style="width: 20px margin-left:0;" class="img-fluid">--</p>
             </td>
 
             <td>
@@ -295,7 +295,7 @@
                   )
                 "
               />
-              <p v-else style="width: 20px" class="img-fluid">--</p>
+              <p v-else style="width: 20px margin-left:0;" class="img-fluid">--</p>
             </td>
 
             <td>
@@ -372,7 +372,7 @@
                   )
                 "
               />
-              <p v-else style="width: 20px" class="img-fluid">--</p>
+              <p v-else style="width: 20px margin-left:0;" class="img-fluid">--</p>
             </td>
             <td>
               <img
@@ -448,7 +448,7 @@
                   )
                 "
               />
-              <p v-else style="width: 20px" class="img-fluid">--</p>
+              <p v-else style="width: 20px; margin-left:0; " class="img-fluid">--</p>
             </td>
             <td>
               <img
