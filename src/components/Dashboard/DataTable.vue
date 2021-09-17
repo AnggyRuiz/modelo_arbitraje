@@ -1,6 +1,13 @@
 <template>
   <div class="row col-12 col-md-12 mt-5">
     <div v-if="dataTrx" class="table-responsive">
+      <div class="vld-parent">
+        <loading
+          v-model:active="isLoadingD"
+          :can-cancel="false"
+          :is-full-page="true"
+        />
+      </div>
       <table
         v-if="typeTable == 'NIT'"
         class="table table-striped table-bordered"
@@ -74,6 +81,8 @@
                 src="../../assets/descargar.png"
                 style="width: 20px"
                 class="img-fluid"
+                @click="DesReport(arrayNit.jobId)"
+
               />
             </td>
           </tr>
@@ -152,6 +161,7 @@
                 src="../../assets/descargar.png"
                 style="width: 20px"
                 class="img-fluid"
+                @click="DesReport(arrayCC.jobId)"
               />
             </td>
           </tr>
@@ -478,6 +488,10 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
+import axios from "axios";
+
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
 export default {
   data() {
     return {
@@ -487,6 +501,7 @@ export default {
       arrayPP: null,
       arrayPEP: null,
       arrayNOM: null,
+      isLoadingD: false,
     };
   },
   computed: {
@@ -585,7 +600,48 @@ export default {
     getDataRetryPP() {},
     getDataRetryPEP() {},
     getDataRetryCE() {},
+     async DesReport(jobId) {
+    console.log(jobId);
+    this.text = "Descargando Reporte";
+    this.isLoadingD = true;
+    /* this.getReport(); */
+    const username = "sosorno@isciolab.com";
+    const password = "Telmo2021";
+    const idToken =
+      "Basic " + Buffer.from(username + ":" + password).toString("base64");
+    console.log(idToken);
+    axios
+      .get(`/report_pdf/${jobId}`, {
+        headers: {
+          Authorization: idToken,
+        },
+        responseType: "blob",
+      })
+      .then((response) => {
+        this.isLoadingD = false;
+        console.log("response is : " + response.data);
+        const blob = new Blob([response.data]);
+        let link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "test.pdf";
+        link.click();
+      })
+      .catch(function (error) {
+        if (error.response) {
+          console.log(error.response.headers);
+        } else if (error.request) {
+          console.log(error.request);
+        } else {
+          console.log(error.message);
+        }
+        console.log(error.config);
+      });
   },
+  },
+ components:{
+   Loading
+ },
+
   beforeUpdate() {
     console.log("aca tablee", this.dataTrx);
     this.arrayNit = this.dataTrx.filter((element) => element.typeDoc == "NIT");

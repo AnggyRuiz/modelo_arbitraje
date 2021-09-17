@@ -9,6 +9,13 @@
         flex-column
       "
     >
+      <div class="vld-parent">
+        <loading
+          v-model:active="isLoadingD"
+          :can-cancel="false"
+          :is-full-page="true"
+        />
+      </div>
       <h4 class="h4 pt-3 pb-3 align-self-start">Reporte Solicitado</h4>
       <div>
         <loading
@@ -18,21 +25,32 @@
           :is-full-page="false"
         />
         <h6 id="process" class="h6 align-self-start">
-          procesando reporte de {{ name }}.
+          procesando reporte {{ name }}.
         </h6>
       </div>
       <h6 id="okData" style="display: none" class="h6 align-center pt-2">
-        Reporte de {{ name }} Esta listo.
+        Reporte {{ name }} Esta listo.
       </h6>
-      <button
-        id="btnProcess"
-        style="display: none"
-        @click="viewReport"
-        type="button"
-        class="btn btn-outline-primary align-center mt-3 mb-4"
-      >
-        Ver Reporte
-      </button>
+      <div class="d-flex justify-content-between">
+        <button
+          id="btnProcessDow"
+          style="display: none; margin-right: 4px"
+          @click="DesReport"
+          type="button"
+          class="btn btn-outline-primary align-center mt-3 mb-4"
+        >
+          Descargar Reporte
+        </button>
+        <button
+          id="btnProcess"
+          style="display: none"
+          @click="viewReport"
+          type="button"
+          class="btn btn-outline-primary align-center mt-3 mb-4"
+        >
+          Ver Reporte
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -41,7 +59,6 @@
 import { mapActions, mapState } from "vuex";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import tusDatos from "../../api/tusDatos";
 import axios from "axios";
 
 export default {
@@ -52,7 +69,9 @@ export default {
     return {
       data: null,
       isLoading: true,
+      isLoadingD: false,
       axios,
+      text: "",
     };
   },
   computed: {
@@ -77,9 +96,47 @@ export default {
       "setJobId",
       "getDataTrx",
     ]),
-    async viewReport() {
-      console.log(this.jobId);
-      this.getReport();
+    async DesReport() {
+      this.text = "Descargando Reporte";
+      this.isLoadingD = true;
+      /* this.getReport(); */
+      const username = "sosorno@isciolab.com";
+      const password = "Telmo2021";
+      const idToken =
+        "Basic " + Buffer.from(username + ":" + password).toString("base64");
+      console.log(idToken);
+      axios
+        .get(`/report_pdf/${this.jobId}`, {
+          headers: {
+            Authorization: idToken,
+          },
+          responseType: "blob",
+        })
+        .then((response) => {
+          this.isLoadingD = false;
+          this.getReport();
+
+          console.log("response is : " + response.data);
+          const blob = new Blob([response.data]);
+          let link = document.createElement("a");
+          link.href = URL.createObjectURL(blob);
+          link.download = "test.pdf";
+          link.click();
+        })
+        .catch(function (error) {
+          if (error.response) {
+            console.log(error.response.headers);
+          } else if (error.request) {
+            console.log(error.request);
+          } else {
+            console.log(error.message);
+          }
+          console.log(error.config);
+        });
+    },
+
+    viewReport() {
+      this.isLoadingD = true;
       const username = "sosorno@isciolab.com";
       const password = "Telmo2021";
       const idToken =
@@ -88,11 +145,13 @@ export default {
       axios
         .get(`/report/${this.jobId}`, {
           headers: {
-            /*  Authorization: "Basic c29zb3Jub0Bpc2Npb2xhYi5jb206VGVsbW8yMDIx", */
             Authorization: idToken,
           },
         })
-        .then(function (response) {
+        .then((response) => {
+          this.isLoadingD = false;
+          this.getReport();
+
           console.log("response is : " + response.data);
           let nuevaVentana = window.open("", "NuevaVentana", "");
           nuevaVentana.document.write(response.data);
@@ -174,6 +233,7 @@ export default {
       document.getElementById("process").style.display = "none";
       document.getElementById("okData").style.display = "block";
       document.getElementById("btnProcess").style.display = "block";
+      document.getElementById("btnProcessDow").style.display = "block";
     },
     async changeTrx(_id, data, idUser, jobId) {
       console.log({ _id: _id, data });
