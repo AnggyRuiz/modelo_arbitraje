@@ -11,7 +11,9 @@ export default createStore({
         typeTable: 'CC',
         queryNum: null,
         numNit: null,
-        typeLoad: null
+        typeLoad: null,
+        idTable: null,
+        htmlPdf: null
     },
     mutations: {
         setToken(state, payload) {
@@ -40,6 +42,12 @@ export default createStore({
         },
         setTypeLoad(state, payload) {
             state.typeLoad = payload
+        },
+        setIdTable(state, payload) {
+            state.idTable = payload
+        },
+        setHtmlPdf(state, payload) {
+            state.htmlPdf = payload
         }
     },
     actions: {
@@ -103,23 +111,6 @@ export default createStore({
         async getReport({ commit }, id) {
             commit('setUserData', null)
             commit('setNumNit', null)
-            console.log(id);
-            try {
-                const res = await fetch('https://backendmodelo.herokuapp.com/api/report', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(id)
-                })
-                const dataLaunch = await res.json();
-                console.log(dataLaunch);
-
-                return dataLaunch
-            } catch (error) {
-                console.log(error);
-
-            }
 
         },
         async getResult({ commit }, jobkey) {
@@ -252,6 +243,9 @@ export default createStore({
         },
         setTypeLoad({ commit }, data) {
             commit('setTypeLoad', data)
+        },
+        setIdTable({ commit }, data) {
+            commit("setIdTable", data)
         }
 
     },

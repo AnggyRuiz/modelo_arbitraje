@@ -4,7 +4,7 @@ import About from '../views/About.vue'
 import store from '../store'
 import changePsw from '../views/changePsw.vue'
 import Kyc from '../views/Kyc.vue'
-
+import HtmlReport from '../views/HtmlReport'
 const routes = [{
         path: '/',
         name: 'Home',
@@ -26,6 +26,14 @@ const routes = [{
         path: '/Kyc',
         name: 'Kyc',
         component: Kyc,
+        meta: { protectedRoute: true }
+
+    },
+    {
+        path: '/pdf',
+        name: 'pdf',
+        component: HtmlReport,
+        meta: { protectedRoute: true }
     }
 ]
 

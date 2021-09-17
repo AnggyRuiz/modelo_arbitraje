@@ -1,5 +1,5 @@
 <template>
-  <div class="row col-12 col-md-12 mt-5 ">
+  <div class="row col-12 col-md-12 mt-5">
     <div v-if="dataTrx" class="table-responsive">
       <table
         v-if="typeTable == 'NIT'"
@@ -65,7 +65,9 @@
                   )
                 "
               />
-              <p v-else style="width: 20px margin-left:0;" class="img-fluid">--</p>
+              <p v-else style="width: 20px margin-left:0;" class="img-fluid">
+                --
+              </p>
             </td>
             <td>
               <img
@@ -130,7 +132,7 @@
                 v-if="arrayCC.err"
                 src="../../assets/recargar.png"
                 style="width: 20px"
-                class="img-fluid "
+                class="img-fluid"
                 @click="
                   getDataRetryCC(
                     arrayCC.jobId,
@@ -141,7 +143,9 @@
                   )
                 "
               />
-              <p v-else style="width: 20px margin-left:0;" class="img-fluid">--</p>
+              <p v-else style="width: 20px margin-left:0;" class="img-fluid">
+                --
+              </p>
             </td>
             <td>
               <img
@@ -217,7 +221,9 @@
                   )
                 "
               />
-              <p v-else style="width: 20px margin-left:0;" class="img-fluid">--</p>
+              <p v-else style="width: 20px margin-left:0;" class="img-fluid">
+                --
+              </p>
             </td>
 
             <td>
@@ -295,7 +301,9 @@
                   )
                 "
               />
-              <p v-else style="width: 20px margin-left:0;" class="img-fluid">--</p>
+              <p v-else style="width: 20px margin-left:0;" class="img-fluid">
+                --
+              </p>
             </td>
 
             <td>
@@ -372,7 +380,9 @@
                   )
                 "
               />
-              <p v-else style="width: 20px margin-left:0;" class="img-fluid">--</p>
+              <p v-else style="width: 20px margin-left:0;" class="img-fluid">
+                --
+              </p>
             </td>
             <td>
               <img
@@ -448,7 +458,9 @@
                   )
                 "
               />
-              <p v-else style="width: 20px; margin-left:0; " class="img-fluid">--</p>
+              <p v-else style="width: 20px; margin-left: 0" class="img-fluid">
+                --
+              </p>
             </td>
             <td>
               <img
@@ -487,6 +499,7 @@ export default {
       "getResult",
       "changeTrx",
       "getDataTrx",
+      "setIdTable",
     ]),
     getDataRetry() {
       console.log("entra aca");
@@ -497,6 +510,7 @@ export default {
       console.log(typeDoc);
       console.log(name);
       console.log(idUser);
+      this.setIdTable(id);
       const data = { id: jobId, typedoc: typeDoc };
       this.getRetry(data)
         .then((res) => {
@@ -505,9 +519,15 @@ export default {
           console.log(res.jobid);
           this.getResult({ jobkey: res.jobid })
             .then((data) => {
-              console.log("acaaaaa dataaaaa trx", data);
-              console.log(id);
-              this.changeTrx(id, data, idUser, jobId);
+              console.log("acaaaaaaaaaaaaaa", data);
+              if (data.estado == "finalizado") {
+                console.log("acaaaaa dataaaaa trx", data);
+                console.log(id, data, idUser, jobId);
+                this.changeTrx(id, data, idUser, jobId);
+              } else {
+                console.log("espereeeeeee");
+                //this.getDataRetryCC(jobId, typeDoc, name, id, idUser);
+              }
             })
             .catch((err) => {
               console.log(err);

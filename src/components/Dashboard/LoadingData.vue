@@ -41,6 +41,8 @@
 import { mapActions, mapState } from "vuex";
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
+import tusDatos from "../../api/tusDatos";
+import axios from "axios";
 
 export default {
   props: {
@@ -50,20 +52,63 @@ export default {
     return {
       data: null,
       isLoading: true,
+      axios,
     };
   },
   computed: {
-    ...mapState(["userData", "jobId", "kUser", "numNit", "typeLoad"]),
+    ...mapState([
+      "userData",
+      "jobId",
+      "kUser",
+      "numNit",
+      "typeLoad",
+      "idTable",
+    ]),
   },
 
   mounted: async function () {
     this.data = await this.getJob();
   },
   methods: {
-    ...mapActions(["getReport", "getResult", "saveData", "setJobId"]),
+    ...mapActions([
+      "getReport",
+      "getResult",
+      "saveData",
+      "setJobId",
+      "getDataTrx",
+    ]),
     async viewReport() {
       console.log(this.jobId);
-      this.getReport({ id: this.jobId });
+      this.getReport();
+      const username = "sosorno@isciolab.com";
+      const password = "Telmo2021";
+      const idToken =
+        "Basic " + Buffer.from(username + ":" + password).toString("base64");
+      console.log(idToken);
+      axios
+        .get(`/report/${this.jobId}`, {
+          headers: {
+            /*  Authorization: "Basic c29zb3Jub0Bpc2Npb2xhYi5jb206VGVsbW8yMDIx", */
+            Authorization: idToken,
+          },
+        })
+        .then(function (response) {
+          console.log("response is : " + response.data);
+          let nuevaVentana = window.open("", "NuevaVentana", "");
+          nuevaVentana.document.write(response.data);
+          nuevaVentana.print(); //para enviar a la cola de impresión
+          console.log("click en finalizar");
+        })
+        .catch(function (error) {
+          if (error.response) {
+            console.log(error.response.headers);
+          } else if (error.request) {
+            console.log(error.request);
+          } else {
+            console.log(error.message);
+          }
+          console.log(error.config);
+        });
     },
     async getJob() {
       console.log({ jobkey: this.userData.jobid });
@@ -80,6 +125,8 @@ export default {
             console.log(this.typeLoad);
             if (this.typeLoad == "retry") {
               console.log("ajaaaaaaaa");
+              console.log(this.kUser);
+              this.changeTrx(this.idTable, result, this.kUser.id, result.id);
             } else {
               if (result.typedoc == "NIT") {
                 console.log("entra");
@@ -127,6 +174,37 @@ export default {
       document.getElementById("process").style.display = "none";
       document.getElementById("okData").style.display = "block";
       document.getElementById("btnProcess").style.display = "block";
+    },
+    async changeTrx(_id, data, idUser, jobId) {
+      console.log({ _id: _id, data });
+      try {
+        const res = await fetch(
+          "https://backendmodelo.herokuapp.com/api/trx/changeTrx",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              _id: _id,
+              id: data.cedula,
+              err: data.error,
+              name: data.nombre,
+              errores: data.errores,
+              findings: data.hallazgos,
+              finding: data.hallazgo,
+              typedoc: data.typedoc,
+              idUser: idUser,
+              jobId: jobId,
+            }),
+          }
+        );
+        const dataLaunch = await res.json();
+        console.log(dataLaunch);
+        this.getDataTrx(dataLaunch.idUser);
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
   components: {
