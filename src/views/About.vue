@@ -2,6 +2,10 @@
   <div class="about">
     <div class="d-flex justify-content-between m-3">
       <h1 v-if="kUser">Welcome {{ kUser.name }}!</h1>
+      <div>
+      <h5>Total consultas</h5>
+      <p>{{kUser.queryNum}}</p>
+      </div>
       <button
         @click="logOut"
         type="button"
@@ -30,7 +34,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["token", "kUser"]),
+    ...mapState(["token", "kUser", "queryNum"]),
   },
   methods: {
     ...mapActions(["logOut", "setUser", "getDataTrx"]),
@@ -57,6 +61,7 @@ export default {
   },
   created() {
     this.protectedData();
+    console.log(this.kUser);
   },
 };
 </script>

@@ -109,8 +109,33 @@ export default createStore({
             }
         },
         async getReport({ commit }, id) {
-            commit('setUserData', null)
-            commit('setNumNit', null)
+            /*  commit('setUserData', null)
+             commit('setNumNit', null) */
+            try {
+                const res = await fetch("http://localhost:3333/api/report", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    redirect: 'follow',
+                    body: JSON.stringify({ "id": id }),
+
+                })
+                const rs = await res.json()
+                console.log(rs.body);
+                var file = new Blob([rs.body], { type: 'application/pdf' });
+                console.log(file);
+                var fileURL = URL.createObjectURL(file);
+                window.open(fileURL);
+            } catch (err) {
+                console.log(err);
+            }
+            /*   const response = await res.json();
+              console.log(response);
+              var file = new Blob([response], { type: 'application/pdf' });
+              var fileURL = URL.createObjectURL(file);
+              window.open(fileURL); */
+
 
         },
         async getResult({ commit }, jobkey) {

@@ -6,6 +6,8 @@ const idToken =
 export default axios.create({
     baseURL: 'https://dash-board.tusdatos.co/api',
     headers: {
-        "Access-Control-Allow-Origin": "*"
+        'Content-Type': 'application/x-www-form-urlencoded'
+
+
     }
 })

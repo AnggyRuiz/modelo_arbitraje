@@ -515,6 +515,7 @@ export default {
       "changeTrx",
       "getDataTrx",
       "setIdTable",
+      "getReport"
     ]),
     getDataRetry() {
       console.log("entra aca");
@@ -604,28 +605,11 @@ export default {
       console.log(jobId);
       this.text = "Descargando Reporte";
       this.isLoadingD = true;
-      /* this.getReport(); */
-      const username = "sosorno@isciolab.com";
-      const password = "Telmo2021";
-      const idToken =
-        "Basic " + Buffer.from(username + ":" + password).toString("base64");
-      console.log(idToken);
-      api
-        .get(`/report_pdf/${jobId}`, {
-          headers: {
-            Authorization: idToken,
-          },
-          responseType: "blob",
-          mode: "no-cors",
-        })
+      this.getReport(jobId)
         .then((response) => {
           this.isLoadingD = false;
-          console.log("response is : " + response.data);
-          const blob = new Blob([response.data]);
-          let link = document.createElement("a");
-          link.href = URL.createObjectURL(blob);
-          link.download = "test.pdf";
-          link.click();
+          console.log("response is : " + response);
+          
         })
         .catch(function (error) {
           if (error.response) {
