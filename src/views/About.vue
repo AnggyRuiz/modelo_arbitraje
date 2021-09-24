@@ -3,17 +3,19 @@
     <div class="d-flex justify-content-between m-3">
       <h1 v-if="kUser">Welcome {{ kUser.name }}!</h1>
       <div>
-      <h5>Total consultas</h5>
-      <p v-if="kUser">{{kUser.queryNum}}</p>
-      </div>
+        
       <button
         @click="logOut"
         type="button"
-        class="btn btn-primary"
+        class="btn btn-primary mb-4"
         style="width: 150px; height: 37px"
       >
         Cerrar sesión
       </button>
+      <h6>Consultas disponibles</h6>
+      <p v-if="kUser">{{kUser.queryNum}}</p>
+      
+      </div>
     </div>
     <div class="row justify-content-between ps-4">
       <form-report></form-report>
