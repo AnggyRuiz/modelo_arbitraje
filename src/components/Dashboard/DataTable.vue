@@ -491,7 +491,6 @@ import axios from "axios";
 
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
-import api from "../../api/tusDatos";
 export default {
   data() {
     return {
@@ -515,7 +514,7 @@ export default {
       "changeTrx",
       "getDataTrx",
       "setIdTable",
-      "getReport"
+      "getReport",
     ]),
     getDataRetry() {
       console.log("entra aca");
@@ -605,22 +604,7 @@ export default {
       console.log(jobId);
       this.text = "Descargando Reporte";
       this.isLoadingD = true;
-      this.getReport(jobId)
-        .then((response) => {
-          this.isLoadingD = false;
-          console.log("response is : " + response);
-          
-        })
-        .catch(function (error) {
-          if (error.response) {
-            console.log(error.response.headers);
-          } else if (error.request) {
-            console.log(error.request);
-          } else {
-            console.log(error.message);
-          }
-          console.log(error.config);
-        });
+      this.getReport(jobId);
     },
   },
   components: {

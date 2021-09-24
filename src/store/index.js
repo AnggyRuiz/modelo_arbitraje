@@ -117,24 +117,25 @@ export default createStore({
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    redirect: 'follow',
                     body: JSON.stringify({ "id": id }),
+                    responseType: "blob"
 
                 })
-                const rs = await res.json()
-                console.log(rs.body);
-                var file = new Blob([rs.body], { type: 'application/pdf' });
-                console.log(file);
-                var fileURL = URL.createObjectURL(file);
-                window.open(fileURL);
+
+                const rs = await res.text()
+                console.log(rs);
+                // create a download anchor tag
+                var downloadLink = document.createElement('a');
+
+                var blob = new Blob([rs], { type: 'application/pdf' });
+                // create an object URL from the Blob
+                var downloadUrl = URL.createObjectURL(blob);
+                // set object URL as the anchor's href
+                downloadLink.href = downloadUrl;
+                downloadLink.click()
             } catch (err) {
                 console.log(err);
             }
-            /*   const response = await res.json();
-              console.log(response);
-              var file = new Blob([response], { type: 'application/pdf' });
-              var fileURL = URL.createObjectURL(file);
-              window.open(fileURL); */
 
 
         },

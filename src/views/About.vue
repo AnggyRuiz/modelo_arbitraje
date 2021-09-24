@@ -4,7 +4,7 @@
       <h1 v-if="kUser">Welcome {{ kUser.name }}!</h1>
       <div>
       <h5>Total consultas</h5>
-      <p>{{kUser.queryNum}}</p>
+      <p v-if="kUser">{{kUser.queryNum}}</p>
       </div>
       <button
         @click="logOut"
