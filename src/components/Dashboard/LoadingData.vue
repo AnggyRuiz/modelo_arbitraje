@@ -32,15 +32,15 @@
         Reporte {{ name }} Esta listo.
       </h6>
       <div class="d-flex justify-content-between">
-        <button
+     <!--    <button
           id="btnProcessDow"
           style="display: none; margin-right: 4px"
           @click="DesReport"
           type="button"
           class="btn btn-outline-primary align-center mt-3 mb-4"
         >
-          Descargar Reporte
-        </button>
+          Ver Reporte
+        </button> -->
         <button
           id="btnProcess"
           style="display: none"
@@ -48,7 +48,7 @@
           type="button"
           class="btn btn-outline-primary align-center mt-3 mb-4"
         >
-          Ver Reporte
+          Ver Reporte Tradicional
         </button>
       </div>
     </div>
@@ -95,82 +95,21 @@ export default {
       "saveData",
       "setJobId",
       "getDataTrx",
+      "getReport2"
     ]),
-    async DesReport() {
+  /*   async DesReport() {
       this.text = "Descargando Reporte";
       this.isLoadingD = true;
-      /* this.getReport(); */
-      const username = "sosorno@isciolab.com";
-      const password = "Telmo2021";
-      const idToken =
-        "Basic " + Buffer.from(username + ":" + password).toString("base64");
-      console.log(idToken);
-      axios
-        .get(`/report_pdf/${this.jobId}`, {
-          headers: {
-            Authorization: idToken,
-          },
-          responseType: "blob",
-        })
-        .then((response) => {
-          this.isLoadingD = false;
-          this.getReport();
-
-          console.log("response is : " + response.data);
-          const blob = new Blob([response.data]);
-          let link = document.createElement("a");
-          link.href = URL.createObjectURL(blob);
-          link.download = "test.pdf";
-          link.click();
-        })
-        .catch(function (error) {
-          if (error.response) {
-            console.log(error.response.headers);
-          } else if (error.request) {
-            console.log(error.request);
-          } else {
-            console.log(error.message);
-          }
-          console.log(error.config);
-        });
-    },
+       this.getReport2(this.jobId); 
+   
+    }, */
 
     viewReport() {
       this.isLoadingD = true;
-      const username = "sosorno@isciolab.com";
-      const password = "Telmo2021";
-      const idToken =
-        "Basic " + Buffer.from(username + ":" + password).toString("base64");
-      console.log(idToken);
-      axios
-        .get(`/report/${this.jobId}`, {
-          headers: {
-            Authorization: idToken,
-          },
-        })
-        .then((response) => {
-          this.isLoadingD = false;
-          this.getReport();
-
-          console.log("response is : " + response.data);
-          let nuevaVentana = window.open("", "NuevaVentana", "");
-          nuevaVentana.document.write(response.data);
-          nuevaVentana.print(); //para enviar a la cola de impresión
-          console.log("click en finalizar");
-        })
-        .catch(function (error) {
-          if (error.response) {
-            console.log(error.response.headers);
-          } else if (error.request) {
-            console.log(error.request);
-          } else {
-            console.log(error.message);
-          }
-          console.log(error.config);
-        });
+      this.getReport(this.jobId);
     },
     async getJob() {
-      console.log({ jobkey: this.userData.jobid });
+      ({ jobkey: this.userData.jobid });
       await this.getResult({ jobkey: this.userData.jobid })
         .then((result) => {
           if (result.estado == "procesando") {
@@ -178,17 +117,17 @@ export default {
             this.isLoading = true;
           } else {
             this.loading();
-            console.log("aca res", result);
-            console.log(result.id);
+            ("aca res", result);
+            (result.id);
             this.setJobId(result.id);
-            console.log(this.typeLoad);
+            (this.typeLoad);
             if (this.typeLoad == "retry") {
-              console.log("ajaaaaaaaa");
-              console.log(this.kUser);
+              ("ajaaaaaaaa");
+              (this.kUser);
               this.changeTrx(this.idTable, result, this.kUser.id, result.id);
             } else {
               if (result.typedoc == "NIT") {
-                console.log("entra");
+                ("entra");
                 this.saveData({
                   name: result.nombre,
                   id: this.numNit,
@@ -201,8 +140,8 @@ export default {
                   err: result.error,
                 });
               } else {
-                console.log("ERRORES", result.errores);
-                console.log("ERROR", result.error);
+                ("ERRORES", result.errores);
+                ("ERROR", result.error);
                 this.saveData({
                   name: result.nombre,
                   id: result.cedula,
@@ -215,10 +154,10 @@ export default {
                   error: result.error,
                 })
                   .then((res) => {
-                    console.log(res);
+                    (res);
                   })
                   .catch((err) => {
-                    console.log(err);
+                    (err);
                   });
               }
             }
@@ -233,10 +172,10 @@ export default {
       document.getElementById("process").style.display = "none";
       document.getElementById("okData").style.display = "block";
       document.getElementById("btnProcess").style.display = "block";
-      document.getElementById("btnProcessDow").style.display = "block";
+     // document.getElementById("btnProcessDow").style.display = "block";
     },
     async changeTrx(_id, data, idUser, jobId) {
-      console.log({ _id: _id, data });
+      ({ _id: _id, data });
       try {
         const res = await fetch(
           "https://backendmodelo.herokuapp.com/api/trx/changeTrx",
@@ -260,10 +199,10 @@ export default {
           }
         );
         const dataLaunch = await res.json();
-        console.log(dataLaunch);
+        (dataLaunch);
         this.getDataTrx(dataLaunch.idUser);
       } catch (error) {
-        console.log(error);
+        (error);
       }
     },
   },
@@ -271,7 +210,7 @@ export default {
     Loading,
   },
   beforeUpdate() {
-    console.log("aca");
+    ("aca");
     this.loading();
   },
 };

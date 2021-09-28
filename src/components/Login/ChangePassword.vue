@@ -70,13 +70,13 @@ export default {
   },
   methods: {
     async changePass() {
-      console.log(this.pass);
-      console.log(this.passR);
-      console.log(this.kUser);
+      (this.pass);
+      (this.passR);
+      (this.kUser);
 
       if (this.pass == this.passR) {
         this.password = this.pass;
-        console.log("sisaaas");
+        ("sisaaas");
         try {
           const res = await fetch(
             "https://backendmodelo.herokuapp.com/api/user/changePsw",
@@ -95,11 +95,11 @@ export default {
           router.push("/about");
           return userDB;
         } catch (error) {
-          console.log(error);
+          (error);
         }
       } else {
         document.getElementById("alert").style.display = "block";
-        console.log("nonaaaas");
+        ("nonaaaas");
       }
     },
   },

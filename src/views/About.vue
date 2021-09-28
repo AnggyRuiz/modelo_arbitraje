@@ -52,18 +52,18 @@ export default {
           }
         );
         const resDB = await res.json();
-        console.log(resDB);
+        (resDB);
         this.setUser(resDB.data.user);
-        console.log(this.kUser);
+        (this.kUser);
         this.getDataTrx(this.kUser.id);
       } catch (error) {
-        console.log(error);
+        (error);
       }
     },
   },
   created() {
     this.protectedData();
-    console.log(this.kUser);
+    (this.kUser);
   },
 };
 </script>

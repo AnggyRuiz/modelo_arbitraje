@@ -78,7 +78,7 @@
             </td>
             <td>
               <img
-                src="../../assets/descargar.png"
+                src="../../assets/ver.svg"
                 style="width: 20px"
                 class="img-fluid"
                 @click="DesReport(arrayNit.jobId)"
@@ -157,7 +157,7 @@
             </td>
             <td>
               <img
-                src="../../assets/descargar.png"
+                src="../../assets/ver.svg"
                 style="width: 20px"
                 class="img-fluid"
                 @click="DesReport(arrayCC.jobId)"
@@ -237,7 +237,7 @@
 
             <td>
               <img
-                src="../../assets/descargar.png"
+                src="../../assets/ver.svg"
                 style="width: 20px"
                 class="img-fluid"
               />
@@ -317,7 +317,7 @@
 
             <td>
               <img
-                src="../../assets/descargar.png"
+                src="../../assets/ver.svg"
                 style="width: 20px"
                 class="img-fluid"
               />
@@ -395,7 +395,7 @@
             </td>
             <td>
               <img
-                src="../../assets/descargar.png"
+                src="../../assets/ver.svg"
                 style="width: 20px"
                 class="img-fluid"
               />
@@ -473,7 +473,7 @@
             </td>
             <td>
               <img
-                src="../../assets/descargar.png"
+                src="../../assets/ver.svg"
                 style="width: 20px"
                 class="img-fluid"
               />
@@ -517,43 +517,43 @@ export default {
       "getReport",
     ]),
     getDataRetry() {
-      console.log("entra aca");
+      ("entra aca");
     },
 
     async getDataRetryCC(jobId, typeDoc, name, id, idUser) {
-      console.log(jobId);
-      console.log(typeDoc);
-      console.log(name);
-      console.log(idUser);
+      (jobId);
+      (typeDoc);
+      (name);
+      (idUser);
       this.setIdTable(id);
       const data = { id: jobId, typedoc: typeDoc };
       this.getRetry(data)
         .then((res) => {
-          console.log("acaress", res);
+          ("acaress", res);
           this.setTypeLoad("retry");
-          console.log(res.jobid);
+          (res.jobid);
           this.getResult({ jobkey: res.jobid })
             .then((data) => {
-              console.log("acaaaaaaaaaaaaaa", data);
+              ("acaaaaaaaaaaaaaa", data);
               if (data.estado == "finalizado") {
-                console.log("acaaaaa dataaaaa trx", data);
-                console.log(id, data, idUser, jobId);
+                ("acaaaaa dataaaaa trx", data);
+                (id, data, idUser, jobId);
                 this.changeTrx(id, data, idUser, jobId);
               } else {
-                console.log("espereeeeeee");
+                ("espereeeeeee");
                 //this.getDataRetryCC(jobId, typeDoc, name, id, idUser);
               }
             })
             .catch((err) => {
-              console.log(err);
+              (err);
             });
         })
         .catch((err) => {
-          console.log(err);
+          (err);
         });
     },
     async changeTrx(_id, data, idUser, jobId) {
-      console.log({ _id: _id, data });
+      ({ _id: _id, data });
       try {
         const res = await fetch(
           "https://backendmodelo.herokuapp.com/api/trx/changeTrx",
@@ -577,23 +577,23 @@ export default {
           }
         );
         const dataLaunch = await res.json();
-        console.log(dataLaunch);
+        (dataLaunch);
         this.getDataTrx(dataLaunch.idUser);
       } catch (error) {
-        console.log(error);
+        (error);
       }
     },
     getDataRetryNit(jobId, typeDoc) {
-      console.log(jobId);
-      console.log(typeDoc);
+      (jobId);
+      (typeDoc);
       const data = { id: jobId, typedoc: typeDoc };
       this.getRetry(data)
         .then((res) => {
-          console.log("acaress", res);
+          ("acaress", res);
           this.setTypeLoad("retry");
         })
         .catch((err) => {
-          console.log(err);
+          (err);
         });
     },
     getDataRetryNom() {},
@@ -601,10 +601,12 @@ export default {
     getDataRetryPEP() {},
     getDataRetryCE() {},
     async DesReport(jobId) {
-      console.log(jobId);
+      (jobId);
       this.text = "Descargando Reporte";
       this.isLoadingD = true;
-      this.getReport(jobId);
+      this.getReport(jobId).then(res => {
+        this.isLoadingD = false
+      })
     },
   },
   components: {
@@ -612,7 +614,7 @@ export default {
   },
 
   beforeUpdate() {
-    console.log("aca tablee", this.dataTrx);
+    ("aca tablee", this.dataTrx);
     this.arrayNit = this.dataTrx.filter((element) => element.typeDoc == "NIT");
     this.arrayCC = this.dataTrx.filter((element) => element.typeDoc == "CC");
     this.arrayCE = this.dataTrx.filter((element) => element.typeDoc == "CE");

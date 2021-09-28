@@ -52,7 +52,7 @@ export default createStore({
     },
     actions: {
         async login({ commit }, user) {
-            console.log(user)
+            (user)
             commit("setToken", user.data.token);
             commit('setUser', user.user);
             localStorage.setItem("idToken", user.data.token);
@@ -67,7 +67,7 @@ export default createStore({
             commit('setUserData', null)
             commit('setNumNit', null)
 
-            console.log('aca dataaAAA', data.doc)
+            ('aca dataaAAA', data.doc)
             commit('setNumNit', data.doc)
             try {
                 const res = await fetch('https://backendmodelo.herokuapp.com/api/launch', {
@@ -78,17 +78,17 @@ export default createStore({
                     body: JSON.stringify(data)
                 })
                 const dataLaunch = await res.json();
-                console.log(dataLaunch);
+                (dataLaunch);
                 commit('setUserData', dataLaunch)
                 return dataLaunch
             } catch (error) {
-                console.log(error);
+                (error);
 
             }
 
         },
         async setQueryNum({ commit }, id) {
-            console.log({ "idUser": id });
+            ({ "idUser": id });
             try {
                 const res = await fetch('https://backendmodelo.herokuapp.com/api/user/getUser', {
                     method: 'POST',
@@ -98,47 +98,71 @@ export default createStore({
                     body: JSON.stringify({ "idUser": id })
                 })
                 const dataRes = await res.json();
-                console.log(dataRes[0].queryNum);
+                (dataRes[0].queryNum);
                 commit('setQuery', dataRes[0].queryNum)
 
 
                 return dataRes
             } catch (error) {
-                console.log(error);
+                (error);
 
             }
         },
         async getReport({ commit }, id) {
-            /*  commit('setUserData', null)
-             commit('setNumNit', null) */
+            commit('setUserData', null)
+            commit('setNumNit', null)
             try {
-                const res = await fetch("http://localhost:3333/api/report", {
+                const res = await fetch("https://backendmodelo.herokuapp.com/api/report", {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({ "id": id }),
-                    responseType: "blob"
 
                 })
 
                 const rs = await res.text()
-                console.log(rs);
-                // create a download anchor tag
-                var downloadLink = document.createElement('a');
 
-                var blob = new Blob([rs], { type: 'application/pdf' });
-                // create an object URL from the Blob
-                var downloadUrl = URL.createObjectURL(blob);
-                // set object URL as the anchor's href
-                downloadLink.href = downloadUrl;
-                downloadLink.click()
+                ("response is : " + rs);
+                let nuevaVentana = window.open("", "NuevaVentana", "");
+                nuevaVentana.document.write(rs);
+                nuevaVentana.print(); //para enviar a la cola de impresión
+                ("click en finalizar");
             } catch (err) {
-                console.log(err);
+                (err);
             }
 
 
         },
+
+        async getReport2({ commit }, id) {
+            commit('setUserData', null)
+            commit('setNumNit', null)
+                (id);
+            try {
+                const res = await fetch("https://backendmodelo.herokuapp.com/api/report2", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ "id": id }),
+
+                })
+
+                const rs = await res.text()
+
+                ("response is : " + rs);
+                let nuevaVentana = window.open("", "NuevaVentana", "");
+                nuevaVentana.document.write(rs);
+                nuevaVentana.print(); //para enviar a la cola de impresión
+                ("click en finalizar");
+            } catch (err) {
+                (err);
+            }
+
+
+        },
+
         async getResult({ commit }, jobkey) {
             try {
                 const res = await fetch('https://backendmodelo.herokuapp.com/api/result', {
@@ -149,16 +173,16 @@ export default createStore({
                     body: JSON.stringify(jobkey)
                 })
                 const dataLaunch = await res.json();
-                console.log(dataLaunch);
-                console.log(dataLaunch.id);
+                (dataLaunch);
+                (dataLaunch.id);
                 return dataLaunch
             } catch (error) {
-                console.log(error);
+                (error);
 
             }
         },
         async getDataTrx({ commit }, idUser) {
-            console.log({ "idUser": idUser });
+            ({ "idUser": idUser });
             try {
                 const res = await fetch('https://backendmodelo.herokuapp.com/api/trx/getTrx', {
                     method: 'POST',
@@ -168,17 +192,17 @@ export default createStore({
                     body: JSON.stringify({ "idUser": idUser })
                 })
                 const response = await res.json();
-                console.log(response);
+                (response);
                 commit('setDataTrx', response)
                 return response
             } catch (error) {
-                console.log(error);
+                (error);
 
             }
         },
         async saveData({ commit }, data) {
-            console.log(data);
-            console.log('entraaaa a guardar datos a la BD');
+            (data);
+            ('entraaaa a guardar datos a la BD');
             try {
                 const res = await fetch('https://backendmodelo.herokuapp.com/api/trx/saveTransaction', {
                     method: 'POST',
@@ -188,7 +212,7 @@ export default createStore({
                     body: JSON.stringify(data)
                 })
                 const dataSaave = await res.json();
-                console.log('data save', dataSaave.data);
+                ('data save', dataSaave.data);
                 try {
                     const res = await fetch('https://backendmodelo.herokuapp.com/api/trx/getTrx', {
                         method: 'POST',
@@ -198,12 +222,12 @@ export default createStore({
                         body: JSON.stringify({ "idUser": dataSaave.data.idUser })
                     })
                     const response = await res.json();
-                    console.log(response);
+                    (response);
                     commit('setDataTrx', response)
 
                     return response
                 } catch (error) {
-                    console.log(error);
+                    (error);
 
                 }
 
@@ -212,13 +236,13 @@ export default createStore({
 
                 return dataSaave
             } catch (error) {
-                console.log(error);
+                (error);
 
             }
         },
         async getRetry({ commit }, data) {
 
-            console.log(data);
+            (data);
             try {
                 const res = await fetch('https://backendmodelo.herokuapp.com/api/retry', {
                     method: 'POST',
@@ -228,12 +252,12 @@ export default createStore({
                     body: JSON.stringify(data)
                 })
                 const dataLaunch = await res.json();
-                console.log(dataLaunch);
+                (dataLaunch);
                 commit('setUserData', dataLaunch)
 
                 return dataLaunch
             } catch (error) {
-                console.log(error);
+                (error);
 
             }
         },

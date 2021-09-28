@@ -99,11 +99,11 @@ export default {
         document.getElementById("alert").style.display = "block";
       } else {
         document.getElementById("alert").style.display = "none";
-        console.log(this.kUser);
+        (this.kUser);
         this.setQueryNum(this.kUser.id).then((res, err) => {
           if (err) throw new Error(err);
-          console.log(res);
-          console.log("aca va el num", this.queryNum);
+          (res);
+          ("aca va el num", this.queryNum);
           if (!this.queryNum == 0) {
             const e = document.getElementById("selected");
             const result = e.options[e.selectedIndex].value;
@@ -111,14 +111,14 @@ export default {
             this.data.typedoc = result;
             this.data.queryNum = this.queryNum - 1;
             this.data.id = this.kUser.id;
-            console.log(this.data);
+            (this.data);
             this.setQuery(this.data.queryNum);
-            console.log("acaaaa cambiaaaa", this.data.queryNum);
+            ("acaaaa cambiaaaa", this.data.queryNum);
             this.setTypeLoad("form");
 
            this.searchData(this.data)
               .then((result) => {
-                console.log("poner cuidado aca", result);
+                ("poner cuidado aca", result);
                 this.doc = null;
               })
               .catch((err) => {
@@ -134,9 +134,9 @@ export default {
     onChange() {
       const e = document.getElementById("selected");
       const result = e.options[e.selectedIndex].value;
-      console.log(result);
+      (result);
       this.setTypeTable(result);
-      console.log(this.typeTable);
+      (this.typeTable);
     },
   },
 };
