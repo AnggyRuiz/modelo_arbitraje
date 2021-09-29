@@ -95,11 +95,11 @@ export default {
           router.push("/about");
           return userDB;
         } catch (error) {
-          (error);
+          console.log(error);
         }
       } else {
         document.getElementById("alert").style.display = "block";
-        ("nonaaaas");
+        
       }
     },
   },

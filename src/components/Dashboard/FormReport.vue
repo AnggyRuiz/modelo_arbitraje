@@ -102,8 +102,6 @@ export default {
         (this.kUser);
         this.setQueryNum(this.kUser.id).then((res, err) => {
           if (err) throw new Error(err);
-          (res);
-          ("aca va el num", this.queryNum);
           if (!this.queryNum == 0) {
             const e = document.getElementById("selected");
             const result = e.options[e.selectedIndex].value;
@@ -111,14 +109,11 @@ export default {
             this.data.typedoc = result;
             this.data.queryNum = this.queryNum - 1;
             this.data.id = this.kUser.id;
-            (this.data);
             this.setQuery(this.data.queryNum);
-            ("acaaaa cambiaaaa", this.data.queryNum);
             this.setTypeLoad("form");
 
            this.searchData(this.data)
               .then((result) => {
-                ("poner cuidado aca", result);
                 this.doc = null;
               })
               .catch((err) => {
@@ -134,9 +129,7 @@ export default {
     onChange() {
       const e = document.getElementById("selected");
       const result = e.options[e.selectedIndex].value;
-      (result);
       this.setTypeTable(result);
-      (this.typeTable);
     },
   },
 };

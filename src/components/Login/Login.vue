@@ -90,18 +90,16 @@ export default {
           }
         );
         const userDB = await res.json();
-        (userDB.data.token);
         await this.login(userDB);
         return userDB;
       } catch (error) {
-        (error);
+        console.log(error);
         this.show = false;
         document.getElementById("alert").style.display = "block";
       }
     },
     async showMe() {
       if (!this.user) {
-        ("entra");
       } else {
         this.show = true;
         setTimeout(() => {

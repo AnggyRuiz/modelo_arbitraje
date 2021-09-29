@@ -109,7 +109,6 @@ export default {
       this.getReport(this.jobId);
     },
     async getJob() {
-      ({ jobkey: this.userData.jobid });
       await this.getResult({ jobkey: this.userData.jobid })
         .then((result) => {
           if (result.estado == "procesando") {
@@ -117,17 +116,13 @@ export default {
             this.isLoading = true;
           } else {
             this.loading();
-            ("aca res", result);
-            (result.id);
             this.setJobId(result.id);
             (this.typeLoad);
             if (this.typeLoad == "retry") {
-              ("ajaaaaaaaa");
               (this.kUser);
               this.changeTrx(this.idTable, result, this.kUser.id, result.id);
             } else {
               if (result.typedoc == "NIT") {
-                ("entra");
                 this.saveData({
                   name: result.nombre,
                   id: this.numNit,
@@ -140,8 +135,6 @@ export default {
                   err: result.error,
                 });
               } else {
-                ("ERRORES", result.errores);
-                ("ERROR", result.error);
                 this.saveData({
                   name: result.nombre,
                   id: result.cedula,
@@ -154,10 +147,10 @@ export default {
                   error: result.error,
                 })
                   .then((res) => {
-                    (res);
+                    console.log(res);
                   })
                   .catch((err) => {
-                    (err);
+                    console.log(err);
                   });
               }
             }
@@ -175,7 +168,6 @@ export default {
      // document.getElementById("btnProcessDow").style.display = "block";
     },
     async changeTrx(_id, data, idUser, jobId) {
-      ({ _id: _id, data });
       try {
         const res = await fetch(
           "https://backendmodelo.herokuapp.com/api/trx/changeTrx",
@@ -199,10 +191,9 @@ export default {
           }
         );
         const dataLaunch = await res.json();
-        (dataLaunch);
         this.getDataTrx(dataLaunch.idUser);
       } catch (error) {
-        (error);
+        console.log(error);
       }
     },
   },
@@ -210,7 +201,6 @@ export default {
     Loading,
   },
   beforeUpdate() {
-    ("aca");
     this.loading();
   },
 };

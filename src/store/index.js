@@ -78,11 +78,10 @@ export default createStore({
                     body: JSON.stringify(data)
                 })
                 const dataLaunch = await res.json();
-                (dataLaunch);
                 commit('setUserData', dataLaunch)
                 return dataLaunch
             } catch (error) {
-                (error);
+                console.log(err)
 
             }
 
@@ -98,13 +97,10 @@ export default createStore({
                     body: JSON.stringify({ "idUser": id })
                 })
                 const dataRes = await res.json();
-                (dataRes[0].queryNum);
                 commit('setQuery', dataRes[0].queryNum)
-
-
                 return dataRes
             } catch (error) {
-                (error);
+                console.log(err)
 
             }
         },
@@ -122,14 +118,11 @@ export default createStore({
                 })
 
                 const rs = await res.text()
-
-                ("response is : " + rs);
                 let nuevaVentana = window.open("", "NuevaVentana", "");
                 nuevaVentana.document.write(rs);
                 nuevaVentana.print(); //para enviar a la cola de impresión
-                ("click en finalizar");
             } catch (err) {
-                (err);
+                console.log(err);
             }
 
 
@@ -150,14 +143,11 @@ export default createStore({
                 })
 
                 const rs = await res.text()
-
-                ("response is : " + rs);
                 let nuevaVentana = window.open("", "NuevaVentana", "");
                 nuevaVentana.document.write(rs);
                 nuevaVentana.print(); //para enviar a la cola de impresión
-                ("click en finalizar");
             } catch (err) {
-                (err);
+                console.log(err);
             }
 
 
@@ -173,16 +163,13 @@ export default createStore({
                     body: JSON.stringify(jobkey)
                 })
                 const dataLaunch = await res.json();
-                (dataLaunch);
-                (dataLaunch.id);
                 return dataLaunch
             } catch (error) {
-                (error);
+                console.log(err)
 
             }
         },
         async getDataTrx({ commit }, idUser) {
-            ({ "idUser": idUser });
             try {
                 const res = await fetch('https://backendmodelo.herokuapp.com/api/trx/getTrx', {
                     method: 'POST',
@@ -192,17 +179,14 @@ export default createStore({
                     body: JSON.stringify({ "idUser": idUser })
                 })
                 const response = await res.json();
-                (response);
                 commit('setDataTrx', response)
                 return response
             } catch (error) {
-                (error);
+                console.log(err)
 
             }
         },
         async saveData({ commit }, data) {
-            (data);
-            ('entraaaa a guardar datos a la BD');
             try {
                 const res = await fetch('https://backendmodelo.herokuapp.com/api/trx/saveTransaction', {
                     method: 'POST',
@@ -222,12 +206,11 @@ export default createStore({
                         body: JSON.stringify({ "idUser": dataSaave.data.idUser })
                     })
                     const response = await res.json();
-                    (response);
                     commit('setDataTrx', response)
 
                     return response
                 } catch (error) {
-                    (error);
+                    console.log(err)
 
                 }
 
@@ -236,13 +219,12 @@ export default createStore({
 
                 return dataSaave
             } catch (error) {
-                (error);
+                console.log(err)
 
             }
         },
         async getRetry({ commit }, data) {
 
-            (data);
             try {
                 const res = await fetch('https://backendmodelo.herokuapp.com/api/retry', {
                     method: 'POST',
@@ -252,12 +234,10 @@ export default createStore({
                     body: JSON.stringify(data)
                 })
                 const dataLaunch = await res.json();
-                (dataLaunch);
                 commit('setUserData', dataLaunch)
-
                 return dataLaunch
             } catch (error) {
-                (error);
+                console.log(err)
 
             }
         },
