@@ -118,9 +118,8 @@ export default createStore({
                 })
 
                 const rs = await res.text()
-                let nuevaVentana = window.open("", "NuevaVentana", "");
-                nuevaVentana.document.write(rs);
-                nuevaVentana.print(); //para enviar a la cola de impresión
+                var x = window.open();
+                x.document.open().write(rs);
             } catch (err) {
                 console.log(err);
             }
