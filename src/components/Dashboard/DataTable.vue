@@ -515,6 +515,7 @@ export default {
       "getDataTrx",
       "setIdTable",
       "getReport",
+      "logOut"
     ]),
     getDataRetry() {
       ("entra aca");
@@ -592,6 +593,7 @@ export default {
       this.isLoadingD = true;
       this.getReport(jobId).then((res) => {
         this.isLoadingD = false;
+        this.logOut();
       });
     },
   },

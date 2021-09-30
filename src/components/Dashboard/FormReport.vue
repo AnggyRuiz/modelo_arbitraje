@@ -11,6 +11,13 @@
             flex-column
           "
         >
+         <div
+            class="alert alert-danger m-2"
+            id="alertData"
+            role="alert"
+          >
+            <b>¡Recuerda!</b> debes contar con la autorización del titular antes de realizar la consulta en la plataforma.
+          </div>
           <h4 class="h4 align-self-start pt-3 pb-3">Generar Reporte</h4>
           <div
             class="alert alert-danger"
@@ -97,6 +104,7 @@ export default {
       if (!this.doc) {
         console.error("debe llenar todos los campos");
         document.getElementById("alert").style.display = "block";
+        document.getElementById("alertData").style.display = "none";
       } else {
         document.getElementById("alert").style.display = "none";
         (this.kUser);
@@ -121,6 +129,8 @@ export default {
               });
           } else {
             document.getElementById("alertQuey").style.display = "block";
+            document.getElementById("alertData").style.display = "none";
+            
             return;
           }
         });

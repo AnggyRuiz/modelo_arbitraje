@@ -1,5 +1,10 @@
 <template>
   <div class="mt-3 col-11 col-md-5 border">
+    <loading
+      v-model:active="isLoadingD"
+      :can-cancel="false"
+      :is-full-page="true"
+    />
     <div
       class="
         container
@@ -9,13 +14,7 @@
         flex-column
       "
     >
-      <div class="vld-parent">
-        <loading
-          v-model:active="isLoadingD"
-          :can-cancel="false"
-          :is-full-page="true"
-        />
-      </div>
+      <div class="vld-parent"></div>
       <h4 class="h4 pt-3 pb-3 align-self-start">Reporte Solicitado</h4>
       <div>
         <loading
@@ -32,7 +31,7 @@
         Reporte {{ name }} Esta listo.
       </h6>
       <div class="d-flex justify-content-between">
-     <!--    <button
+        <!--    <button
           id="btnProcessDow"
           style="display: none; margin-right: 4px"
           @click="DesReport"
@@ -95,9 +94,9 @@ export default {
       "saveData",
       "setJobId",
       "getDataTrx",
-      "getReport2"
+      "getReport2",
     ]),
-  /*   async DesReport() {
+    /*   async DesReport() {
       this.text = "Descargando Reporte";
       this.isLoadingD = true;
        this.getReport2(this.jobId); 
@@ -105,8 +104,11 @@ export default {
     }, */
 
     viewReport() {
+      console.log('entra');
       this.isLoadingD = true;
-      this.getReport(this.jobId);
+      this.getReport(this.jobId).then((res) => {
+        this.isLoadingD = false;
+      });
     },
     async getJob() {
       await this.getResult({ jobkey: this.userData.jobid })
@@ -117,9 +119,9 @@ export default {
           } else {
             this.loading();
             this.setJobId(result.id);
-            (this.typeLoad);
+            this.typeLoad;
             if (this.typeLoad == "retry") {
-              (this.kUser);
+              this.kUser;
               this.changeTrx(this.idTable, result, this.kUser.id, result.id);
             } else {
               if (result.typedoc == "NIT") {
@@ -165,7 +167,7 @@ export default {
       document.getElementById("process").style.display = "none";
       document.getElementById("okData").style.display = "block";
       document.getElementById("btnProcess").style.display = "block";
-     // document.getElementById("btnProcessDow").style.display = "block";
+      // document.getElementById("btnProcessDow").style.display = "block";
     },
     async changeTrx(_id, data, idUser, jobId) {
       try {

@@ -52,7 +52,6 @@ export default createStore({
     },
     actions: {
         async login({ commit }, user) {
-            (user)
             commit("setToken", user.data.token);
             commit('setUser', user.user);
             localStorage.setItem("idToken", user.data.token);
@@ -66,8 +65,7 @@ export default createStore({
         async searchData({ commit }, data) {
             commit('setUserData', null)
             commit('setNumNit', null)
-
-            ('aca dataaAAA', data.doc)
+            console.log('aca dataaAAA', data.doc)
             commit('setNumNit', data.doc)
             try {
                 const res = await fetch('https://backendmodelo.herokuapp.com/api/launch', {
@@ -78,10 +76,12 @@ export default createStore({
                     body: JSON.stringify(data)
                 })
                 const dataLaunch = await res.json();
+                console.log(dataLaunch);
                 commit('setUserData', dataLaunch)
+
                 return dataLaunch
             } catch (error) {
-                console.log(err)
+                console.log(error)
 
             }
 
@@ -105,8 +105,7 @@ export default createStore({
             }
         },
         async getReport({ commit }, id) {
-            commit('setUserData', null)
-            commit('setNumNit', null)
+
             try {
                 const res = await fetch("https://backendmodelo.herokuapp.com/api/report", {
                     method: 'POST',
@@ -118,8 +117,12 @@ export default createStore({
                 })
 
                 const rs = await res.text()
-                var x = window.open();
-                x.document.open().write(rs);
+                console.log(rs);
+                let nuevaVentana = window.open('', "NuevaVentana", "");
+                nuevaVentana.document.write(rs);
+                console.log("click en finalizar");
+                commit('setUserData', null)
+                commit('setNumNit', null)
             } catch (err) {
                 console.log(err);
             }
