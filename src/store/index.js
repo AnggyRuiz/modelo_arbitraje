@@ -130,6 +130,31 @@ export default createStore({
 
 
         },
+        async getReportNit({ commit }, id) {
+
+            try {
+                const res = await fetch("https://backendmodelo.herokuapp.com/api/report_nit", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ "id": id }),
+
+                })
+
+                const rs = await res.text()
+                console.log(rs);
+                let nuevaVentana = window.open('', "NuevaVentana", "");
+                nuevaVentana.document.write(rs);
+                console.log("click en finalizar");
+                commit('setUserData', null)
+                commit('setNumNit', null)
+            } catch (err) {
+                console.log(err);
+            }
+
+
+        },
 
         async getReport2({ commit }, id) {
             commit('setUserData', null)
