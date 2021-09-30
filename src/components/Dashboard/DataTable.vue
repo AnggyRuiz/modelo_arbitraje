@@ -515,7 +515,6 @@ export default {
       "getDataTrx",
       "setIdTable",
       "getReport",
-      "logOut"
     ]),
     getDataRetry() {
       ("entra aca");
@@ -568,6 +567,7 @@ export default {
           }
         );
         const dataLaunch = await res.json();
+        console.log(dataLaunch);
         this.getDataTrx(dataLaunch.idUser);
       } catch (error) {
         console.log(error);
@@ -593,7 +593,6 @@ export default {
       this.isLoadingD = true;
       this.getReport(jobId).then((res) => {
         this.isLoadingD = false;
-        this.logOut();
       });
     },
   },
@@ -602,6 +601,8 @@ export default {
   },
 
   beforeUpdate() {
+    console.log("aca tablee", this.dataTrx);
+
     this.arrayNit = this.dataTrx.filter((element) => element.typeDoc == "NIT");
     this.arrayCC = this.dataTrx.filter((element) => element.typeDoc == "CC");
     this.arrayCE = this.dataTrx.filter((element) => element.typeDoc == "CE");

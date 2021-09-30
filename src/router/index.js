@@ -11,7 +11,7 @@ const routes = [{
         component: Home
     },
     {
-        path: '/about',
+        path: '/Dashboard',
         name: 'About',
         component: About,
         meta: { protectedRoute: true }
@@ -28,13 +28,8 @@ const routes = [{
         component: Kyc,
         meta: { protectedRoute: true }
 
-    },
-    {
-        path: '/pdf',
-        name: 'pdf',
-        component: HtmlReport,
-        meta: { protectedRoute: true }
     }
+
 ]
 
 const router = createRouter({

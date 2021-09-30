@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <div class="d-flex justify-content-between m-3">
-      <h1 v-if="kUser">Welcome {{ kUser.name }}!</h1>
+      <h1 v-if="kUser">Hola {{ kUser.name }}!</h1>
       <div>
         
       <button
@@ -14,7 +14,8 @@
       </button>
       <h6>Consultas disponibles</h6>
       <p v-if="kUser">{{kUser.queryNum}}</p>
-      
+       <h6>Consultas Realizadas</h6>
+      <p v-if="cantConsul">{{cantConsul}}</p>
       </div>
     </div>
     <div class="row justify-content-between ps-4">
@@ -33,10 +34,11 @@ export default {
   data() {
     return {
       user: null,
+      cantConsul: null
     };
   },
   computed: {
-    ...mapState(["token", "kUser", "queryNum"]),
+    ...mapState(["token", "kUser", "queryNum",]),
   },
   methods: {
     ...mapActions(["logOut", "setUser", "getDataTrx"]),
@@ -53,7 +55,10 @@ export default {
         );
         const resDB = await res.json();
         this.setUser(resDB.data.user);
-        this.getDataTrx(this.kUser.id);
+        this.getDataTrx(this.kUser.id).then((res)=>{
+          console.log(res.length);
+          this.cantConsul = res.length
+        });
       } catch (error) {
         console.log();(error);
       }

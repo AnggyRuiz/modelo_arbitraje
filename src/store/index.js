@@ -59,7 +59,7 @@ export default createStore({
                 router.push("/changePsw");
 
             } else {
-                router.push("/about");
+                router.push("/Dashboard");
             }
         },
         async searchData({ commit }, data) {

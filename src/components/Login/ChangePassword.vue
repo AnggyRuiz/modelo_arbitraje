@@ -92,7 +92,7 @@ export default {
             }
           );
           const userDB = await res.json();
-          router.push("/about");
+          router.push("/Dashboard");
           return userDB;
         } catch (error) {
           console.log(error);
