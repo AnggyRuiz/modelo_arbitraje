@@ -95,7 +95,7 @@ export default {
     ...mapActions([
       "searchData",
       "setTypeTable",
-      "setQuery",
+   
       "setQueryNum",
       "setTypeLoad",
     ]),
@@ -117,7 +117,6 @@ export default {
             this.data.typedoc = result;
             this.data.queryNum = this.queryNum - 1;
             this.data.id = this.kUser.id;
-            this.setQuery(this.data.queryNum);
             this.setTypeLoad("form");
 
            this.searchData(this.data)

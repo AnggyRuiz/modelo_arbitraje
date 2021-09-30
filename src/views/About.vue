@@ -2,8 +2,7 @@
   <div class="about">
     <div class="d-flex justify-content-between m-3">
       <h1 v-if="kUser">Hola {{ kUser.name }}!</h1>
-      <div d-flex flex-column>
-        <button
+          <button
           @click="logOut"
           type="button"
           class="btn btn-primary mb-4"
@@ -11,10 +10,13 @@
         >
           Cerrar sesión
         </button>
-        <div class="d-flex">
+    </div>
+      <div d-flex flex-column>
+    
+        <div class="d-flex justify-content-end">
           <div class="d-flex flex-column p-2">
             <h6><b>Consultas disponibles</b></h6>
-            <p v-if="kUser">{{ kUser.queryNum }}</p>
+            <p>{{ queryNum }}</p>
           </div>
           <div class="d-flex flex-column p-2">
             <h6><b>Consultas Realizadas</b></h6>
@@ -28,7 +30,7 @@
     </div>
     <!-- 
     <data-table></data-table> -->
-  </div>
+  
 </template>
 
 <script>
@@ -47,7 +49,7 @@ export default {
     ...mapState(["token", "kUser", "queryNum"]),
   },
   methods: {
-    ...mapActions(["logOut", "setUser", "getDataTrx"]),
+    ...mapActions(["logOut", "setUser", "getDataTrx", "setQueryNum"]),
     async protectedData() {
       try {
         const res = await fetch(
@@ -60,6 +62,8 @@ export default {
           }
         );
         const resDB = await res.json();
+        console.log(resDB.data.user.id);
+        this.setQueryNum(resDB.data.user.id)
         this.setUser(resDB.data.user);
         this.getDataTrx(this.kUser.id).then((res) => {
           console.log(res.length);

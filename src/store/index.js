@@ -87,7 +87,7 @@ export default createStore({
 
         },
         async setQueryNum({ commit }, id) {
-            ({ "idUser": id });
+            console.log({ "idUser": id });
             try {
                 const res = await fetch('https://backendmodelo.herokuapp.com/api/user/getUser', {
                     method: 'POST',
@@ -98,12 +98,13 @@ export default createStore({
                 })
                 const dataRes = await res.json();
                 commit('setQuery', dataRes[0].queryNum)
-                return dataRes
+
             } catch (error) {
                 console.log(err)
 
             }
         },
+
         async getReport({ commit }, id) {
 
             try {

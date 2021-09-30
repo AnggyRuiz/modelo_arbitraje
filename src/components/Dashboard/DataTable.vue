@@ -81,7 +81,7 @@
                 src="../../assets/ver.svg"
                 style="width: 20px"
                 class="img-fluid"
-                @click="DesReport(arrayNit.jobId)"
+                @click="DesReport(arrayNit.jobId, 'nit')"
               />
             </td>
           </tr>
@@ -515,6 +515,7 @@ export default {
       "getDataTrx",
       "setIdTable",
       "getReport",
+      "getReportNit",
     ]),
     getDataRetry() {
       ("entra aca");
@@ -587,13 +588,20 @@ export default {
     getDataRetryPP() {},
     getDataRetryPEP() {},
     getDataRetryCE() {},
-    async DesReport(jobId) {
-      jobId;
-      this.text = "Descargando Reporte";
-      this.isLoadingD = true;
-      this.getReport(jobId).then((res) => {
-        this.isLoadingD = false;
-      });
+    async DesReport(jobId, type) {
+      if (type == "nit") {
+        this.isLoadingD = true;
+        this.getReportNit(jobId).then((res) => {
+          console.log(res);
+          this.isLoadingD = false;
+        });
+      } else {
+        this.text = "Descargando Reporte";
+        this.isLoadingD = true;
+        this.getReport(jobId).then((res) => {
+          this.isLoadingD = false;
+        });
+      }
     },
   },
   components: {
