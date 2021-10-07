@@ -487,8 +487,6 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
-import axios from "axios";
-
 import Loading from "vue-loading-overlay";
 import "vue-loading-overlay/dist/vue-loading.css";
 export default {
@@ -516,6 +514,7 @@ export default {
       "setIdTable",
       "getReport",
       "getReportNit",
+      "setCantConsul",
     ]),
     getDataRetry() {
       ("entra aca");
@@ -609,8 +608,7 @@ export default {
   },
 
   beforeUpdate() {
-    console.log("aca tablee", this.dataTrx);
-
+    console.log("aca tablee", this.dataTrx.length);
     this.arrayNit = this.dataTrx.filter((element) => element.typeDoc == "NIT");
     this.arrayCC = this.dataTrx.filter((element) => element.typeDoc == "CC");
     this.arrayCE = this.dataTrx.filter((element) => element.typeDoc == "CE");
@@ -619,6 +617,7 @@ export default {
     this.arrayNOM = this.dataTrx.filter(
       (element) => element.typeDoc == "NOMBRE"
     );
+    this.setCantConsul(this.dataTrx.length);
   },
 };
 </script>

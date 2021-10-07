@@ -1,6 +1,9 @@
 import { createStore } from 'vuex'
 import router from '../router'
-
+//Produccion
+//const url = "https://backendmodelo.herokuapp.com/api"
+//pruebas
+const url = "http://localhost:3333/api"
 export default createStore({
     state: {
         token: null,
@@ -13,7 +16,8 @@ export default createStore({
         numNit: null,
         typeLoad: null,
         idTable: null,
-        htmlPdf: null
+        htmlPdf: null,
+        cantConsul: null
     },
     mutations: {
         setToken(state, payload) {
@@ -48,6 +52,9 @@ export default createStore({
         },
         setHtmlPdf(state, payload) {
             state.htmlPdf = payload
+        },
+        setCantConsul(state, payload) {
+            state.cantConsul = payload
         }
     },
     actions: {
@@ -68,7 +75,7 @@ export default createStore({
             console.log('aca dataaAAA', data.doc)
             commit('setNumNit', data.doc)
             try {
-                const res = await fetch('https://backendmodelo.herokuapp.com/api/launch', {
+                const res = await fetch(`${url}/launch`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -78,7 +85,7 @@ export default createStore({
                 const dataLaunch = await res.json();
                 console.log(dataLaunch);
                 commit('setUserData', dataLaunch)
-
+                commit('setCantConsul', )
                 return dataLaunch
             } catch (error) {
                 console.log(error)
@@ -89,7 +96,7 @@ export default createStore({
         async setQueryNum({ commit }, id) {
             console.log({ "idUser": id });
             try {
-                const res = await fetch('https://backendmodelo.herokuapp.com/api/user/getUser', {
+                const res = await fetch(`${url}/user/getUser`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -108,7 +115,7 @@ export default createStore({
         async getReport({ commit }, id) {
 
             try {
-                const res = await fetch("https://backendmodelo.herokuapp.com/api/report", {
+                const res = await fetch(`${url}/report`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -133,7 +140,7 @@ export default createStore({
         async getReportNit({ commit }, id) {
 
             try {
-                const res = await fetch("https://backendmodelo.herokuapp.com/api/report_nit", {
+                const res = await fetch(`${url}/report_nit`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -161,7 +168,7 @@ export default createStore({
             commit('setNumNit', null)
                 (id);
             try {
-                const res = await fetch("https://backendmodelo.herokuapp.com/api/report2", {
+                const res = await fetch(`${url}/report2`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -183,7 +190,7 @@ export default createStore({
 
         async getResult({ commit }, jobkey) {
             try {
-                const res = await fetch('https://backendmodelo.herokuapp.com/api/result', {
+                const res = await fetch(`${url}/result`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -199,7 +206,7 @@ export default createStore({
         },
         async getDataTrx({ commit }, idUser) {
             try {
-                const res = await fetch('https://backendmodelo.herokuapp.com/api/trx/getTrx', {
+                const res = await fetch(`${url}/trx/getTrx`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -216,7 +223,7 @@ export default createStore({
         },
         async saveData({ commit }, data) {
             try {
-                const res = await fetch('https://backendmodelo.herokuapp.com/api/trx/saveTransaction', {
+                const res = await fetch(`${url}/trx/saveTransaction`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -226,7 +233,7 @@ export default createStore({
                 const dataSaave = await res.json();
                 ('data save', dataSaave.data);
                 try {
-                    const res = await fetch('https://backendmodelo.herokuapp.com/api/trx/getTrx', {
+                    const res = await fetch(`${url}/trx/getTrx`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -254,7 +261,7 @@ export default createStore({
         async getRetry({ commit }, data) {
 
             try {
-                const res = await fetch('https://backendmodelo.herokuapp.com/api/retry', {
+                const res = await fetch(`${url}/retry`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -304,6 +311,9 @@ export default createStore({
         },
         setIdTable({ commit }, data) {
             commit("setIdTable", data)
+        },
+        setCantConsul({ commit }, data) {
+            commit('setCantConsul', data)
         }
 
     },

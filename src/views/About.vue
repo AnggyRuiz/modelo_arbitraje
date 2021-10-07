@@ -42,14 +42,13 @@ export default {
   data() {
     return {
       user: null,
-      cantConsul: null,
     };
   },
   computed: {
-    ...mapState(["token", "kUser", "queryNum"]),
+    ...mapState(["token", "kUser", "queryNum","cantConsul" ]),
   },
   methods: {
-    ...mapActions(["logOut", "setUser", "getDataTrx", "setQueryNum"]),
+    ...mapActions(["logOut", "setUser", "getDataTrx", "setQueryNum", "setCantConsul"]),
     async protectedData() {
       try {
         const res = await fetch(
@@ -67,7 +66,7 @@ export default {
         this.setUser(resDB.data.user);
         this.getDataTrx(this.kUser.id).then((res) => {
           console.log(res.length);
-          this.cantConsul = res.length;
+          this.setCantConsul(res.length);
         });
       } catch (error) {
         console.log();

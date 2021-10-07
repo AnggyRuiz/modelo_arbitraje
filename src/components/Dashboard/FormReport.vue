@@ -11,12 +11,9 @@
             flex-column
           "
         >
-         <div
-            class="alert alert-danger m-2"
-            id="alertData"
-            role="alert"
-          >
-            <b>¡Recuerda!</b> debes contar con la autorización del titular antes de realizar la consulta en la plataforma.
+          <div class="alert alert-danger m-2" id="alertData" role="alert">
+            <b>¡Recuerda!</b> debes contar con la autorización del titular antes
+            de realizar la consulta en la plataforma.
           </div>
           <h4 class="h4 align-self-start pt-3 pb-3">Generar Reporte</h4>
           <div
@@ -88,6 +85,7 @@ export default {
         typedoc: "",
         queryNum: null,
         id: "",
+        cantConsul: null,
       },
     };
   },
@@ -95,9 +93,10 @@ export default {
     ...mapActions([
       "searchData",
       "setTypeTable",
-   
       "setQueryNum",
       "setTypeLoad",
+      "getDataTrx",
+      "setCantConsul",
     ]),
 
     async sendData() {
@@ -107,7 +106,7 @@ export default {
         document.getElementById("alertData").style.display = "none";
       } else {
         document.getElementById("alert").style.display = "none";
-        (this.kUser);
+        this.kUser;
         this.setQueryNum(this.kUser.id).then((res, err) => {
           if (err) throw new Error(err);
           if (!this.queryNum == 0) {
@@ -119,9 +118,14 @@ export default {
             this.data.id = this.kUser.id;
             this.setTypeLoad("form");
 
-           this.searchData(this.data)
+            this.searchData(this.data)
               .then((result) => {
                 this.doc = null;
+                this.setQueryNum(this.kUser.id);
+                this.getDataTrx(this.kUser.id).then((res) => {
+                  console.log(res.length);
+                  this.setCantConsul(res.length);
+                });
               })
               .catch((err) => {
                 console.error(err);
@@ -129,7 +133,7 @@ export default {
           } else {
             document.getElementById("alertQuey").style.display = "block";
             document.getElementById("alertData").style.display = "none";
-            
+
             return;
           }
         });
