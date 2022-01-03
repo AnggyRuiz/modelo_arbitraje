@@ -1,9 +1,9 @@
 import { createStore } from 'vuex'
 import router from '../router'
 //Produccion
-//const url = "https://backendmodelo.herokuapp.com/api"
-//pruebas
-const url = "http://localhost:3333/api"
+const url = "https://backendmodelo.herokuapp.com/api"
+    //pruebas
+    //const url = "http://localhost:3333/api"
 export default createStore({
     state: {
         token: null,
@@ -64,7 +64,6 @@ export default createStore({
             localStorage.setItem("idToken", user.data.token);
             if (user.user.stateAccount == false) {
                 router.push("/changePsw");
-
             } else {
                 router.push("/Dashboard");
             }

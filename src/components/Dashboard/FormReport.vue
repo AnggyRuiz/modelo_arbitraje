@@ -59,6 +59,11 @@
               Consultar
             </button>
           </form>
+          <loading
+            v-model:active="isLoadingF"
+            :can-cancel="false"
+            :is-full-page="true"
+          />
         </div>
       </div>
       <loading-data :name="userData.nombre" v-if="userData"></loading-data>
@@ -71,8 +76,11 @@
 import { mapActions, mapState } from "vuex";
 import DataTable from "./DataTable.vue";
 import LoadingData from "./LoadingData.vue";
+
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
 export default {
-  components: { LoadingData, DataTable },
+  components: { LoadingData, DataTable, Loading },
   computed: {
     ...mapState(["userData", "typeTable", "kUser", "queryNum"]),
   },
@@ -85,8 +93,8 @@ export default {
         typedoc: "",
         queryNum: null,
         id: "",
-        cantConsul: null,
       },
+      isLoadingF: false,
     };
   },
   methods: {
@@ -100,10 +108,13 @@ export default {
     ]),
 
     async sendData() {
+      this.isLoadingF = true;
+
       if (!this.doc) {
         console.error("debe llenar todos los campos");
         document.getElementById("alert").style.display = "block";
         document.getElementById("alertData").style.display = "none";
+        this.isLoadingF = false;
       } else {
         document.getElementById("alert").style.display = "none";
         this.kUser;
@@ -125,6 +136,7 @@ export default {
                 this.getDataTrx(this.kUser.id).then((res) => {
                   console.log(res.length);
                   this.setCantConsul(res.length);
+                  this.isLoadingF = false;
                 });
               })
               .catch((err) => {
@@ -133,7 +145,7 @@ export default {
           } else {
             document.getElementById("alertQuey").style.display = "block";
             document.getElementById("alertData").style.display = "none";
-
+            this.isLoadingF = false;
             return;
           }
         });

@@ -28,7 +28,7 @@
         </h6>
       </div>
       <h6 id="okData" style="display: none" class="h6 align-center pt-2">
-        Reporte {{ name }} Esta listo.
+        El reporte {{ name }} Esta listo.
       </h6>
       <div class="d-flex justify-content-between">
         <!--    <button
@@ -81,6 +81,7 @@ export default {
       "numNit",
       "typeLoad",
       "idTable",
+      "typeTable",
     ]),
   },
 
@@ -94,7 +95,7 @@ export default {
       "saveData",
       "setJobId",
       "getDataTrx",
-      "getReport2",
+      "getReportNit",
     ]),
     /*   async DesReport() {
       this.text = "Descargando Reporte";
@@ -104,15 +105,22 @@ export default {
     }, */
 
     viewReport() {
-      console.log('entra');
+      console.log("entra", this.typeTable);
       this.isLoadingD = true;
-      this.getReport(this.jobId).then((res) => {
-        this.isLoadingD = false;
-      });
+      if (this.typeTable == "NIT") {
+        this.getReportNit(this.jobId).then((res) => {
+          this.isLoadingD = false;
+        });
+      } else {
+        this.getReport(this.jobId).then((res) => {
+          this.isLoadingD = false;
+        });
+      }
     },
     async getJob() {
       await this.getResult({ jobkey: this.userData.jobid })
         .then((result) => {
+          console.log(result);
           if (result.estado == "procesando") {
             this.getJob();
             this.isLoading = true;
@@ -137,23 +145,46 @@ export default {
                   err: result.error,
                 });
               } else {
-                this.saveData({
-                  name: result.nombre,
-                  id: result.cedula,
-                  idUser: this.kUser.id,
-                  typeDoc: result.typedoc,
-                  jobId: result.id,
-                  findings: result.hallazgos,
-                  errores: result.errores,
-                  finding: result.hallazgo,
-                  error: result.error,
-                })
-                  .then((res) => {
-                    console.log(res);
+                console.log(result.nombre);
+                if (result.nombre == "") {
+                  console.log("entra");
+                  
+                  this.saveData({
+                    name: 'No Identidicado',
+                    id: result.cedula,
+                    idUser: this.kUser.id,
+                    typeDoc: result.typedoc,
+                    jobId: result.id,
+                    findings: result.hallazgos,
+                    errores: result.errores,
+                    finding: result.hallazgo,
+                    error: result.error,
                   })
-                  .catch((err) => {
-                    console.log(err);
-                  });
+                    .then((res) => {
+                      console.log(res);
+                    })
+                    .catch((err) => {
+                      console.log(err);
+                    });
+                } else {
+                  this.saveData({
+                    name: result.nombre,
+                    id: result.cedula,
+                    idUser: this.kUser.id,
+                    typeDoc: result.typedoc,
+                    jobId: result.id,
+                    findings: result.hallazgos,
+                    errores: result.errores,
+                    finding: result.hallazgo,
+                    error: result.error,
+                  })
+                    .then((res) => {
+                      console.log(res);
+                    })
+                    .catch((err) => {
+                      console.log(err);
+                    });
+                }
               }
             }
           }
